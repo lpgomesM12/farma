@@ -1,0 +1,33 @@
+<%= form_for(@bairro) do |f| %>
+  <% if @bairro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bairro.errors.count, "error") %> prohibited this bairro from being saved:</h2>
+
+      <ul>
+      <% @bairro.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :cidade_id %><br>
+    <%= f.text_field :cidade_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

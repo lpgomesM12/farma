@@ -1,0 +1,17 @@
+<%@estiloMensagem = "alert alert-success alert-dismissable"%>
+
+<%if notice %> 
+	 <section class="content-header">
+	   <div class= "<%=@estiloMensagem%>" >
+	       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	                    <h4>	<i class="icon fa fa-check"></i> Pronto</h4>
+	                    <%=notice%>
+	   </div>
+	 </section>
+<%end%>
+
+<%if user_signed_in?%>
+   <%= render 'homeAdmin' %>
+<%else%>
+   <%= render 'site' %>
+<%end%>

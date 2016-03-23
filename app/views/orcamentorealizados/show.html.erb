@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Valor orcamento:</strong>
+  <%= @orcamentorealizado.valor_orcamento %>
+</p>
+
+<p>
+  <strong>Valor desconto:</strong>
+  <%= @orcamentorealizado.valor_desconto %>
+</p>
+
+<p>
+  <strong>Porcentagemdesconto:</strong>
+  <%= @orcamentorealizado.porcentagemdesconto %>
+</p>
+
+<p>
+  <strong>Valor total:</strong>
+  <%= @orcamentorealizado.valor_total %>
+</p>
+
+<p>
+  <strong>Mensagem:</strong>
+  <%= @orcamentorealizado.mensagem %>
+</p>
+
+<%= link_to 'Edit', edit_orcamentorealizado_path(@orcamentorealizado) %> |
+<%= link_to 'Back', orcamentorealizados_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dadosusers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Endereco</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dadosusers.each do |dadosuser| %>
+      <tr>
+        <td><%= dadosuser.user %></td>
+        <td><%= dadosuser.endereco %></td>
+        <td><%= link_to 'Show', dadosuser %></td>
+        <td><%= link_to 'Edit', edit_dadosuser_path(dadosuser) %></td>
+        <td><%= link_to 'Destroy', dadosuser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dadosuser', new_dadosuser_path %>

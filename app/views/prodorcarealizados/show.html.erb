@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @prodorcarealizado.valor %>
+</p>
+
+<p>
+  <strong>Valor desconto:</strong>
+  <%= @prodorcarealizado.valor_desconto %>
+</p>
+
+<p>
+  <strong>Valor total:</strong>
+  <%= @prodorcarealizado.valor_total %>
+</p>
+
+<p>
+  <strong>Porcentagemdesconto:</strong>
+  <%= @prodorcarealizado.porcentagemdesconto %>
+</p>
+
+<p>
+  <strong>Flag produtoemfalta:</strong>
+  <%= @prodorcarealizado.flag_produtoemfalta %>
+</p>
+
+<%= link_to 'Edit', edit_prodorcarealizado_path(@prodorcarealizado) %> |
+<%= link_to 'Back', prodorcarealizados_path %>

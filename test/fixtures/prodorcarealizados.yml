@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  valor: 9.99
+  valor_desconto: 9.99
+  valor_total: 9.99
+  porcentagemdesconto: 1
+  flag_produtoemfalta: false
+
+two:
+  valor: 9.99
+  valor_desconto: 9.99
+  valor_total: 9.99
+  porcentagemdesconto: 1
+  flag_produtoemfalta: false

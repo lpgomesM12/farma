@@ -1,0 +1,243 @@
+<%= form_for(@orcamento) do |f| %>
+  <% if @orcamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@orcamento.errors.count, "error") %> prohibited this orcamento from being saved:</h2>
+
+      <ul>
+      <% @orcamento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<form role="form">
+  <div class="box-body">
+
+  <div class="row mar-bot40">    
+    <div class="col-lg-5" > 
+      <%= f.label :nome_orcamento %><br>
+       <%= f.text_field :nome, :class => 'form-control' %>
+     </div>
+    <div class="col-lg-5" > 
+      <label>Bairro referência</label><br>
+      <input type="text" class="form-control" id="nome_bairro" disabled value="<%=@orcamento.bairro.nome%>" name="nomeproduto">
+       <%= f.hidden_field :bairro_id%>
+     </div>
+  </div>
+
+<hr>
+<div class="row">  
+  <div class="col-lg-12">
+    <h4>Adicione fotos de sua receita</h4>
+  </div>
+ </div>
+<hr>
+
+<hr>
+<div class="row">  
+  <div class="col-lg-12">
+    <h4>Ou selecione todos os medicamentos que deseja.</h4>
+      <!-- Trigger the modal with a button -->
+   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Adicionar   medicamentos</button>
+  </div>
+ </div>
+
+<br>
+
+<%if @orcamento.id%>
+  <%= f.hidden_field :situacaoorcamento_id, :value => 3%>
+<%end%>
+<div class="row">  
+  <div class="col-lg-8">
+ <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Produtos</th>
+      </tr>
+    </thead>
+    <tbody id="tbProduto">
+     
+    </tbody>
+  </table>
+ </div>
+</div>
+<hr>
+
+<br>  
+  <div class="row mar-bot40">    
+    <div class="col-lg-10" >
+     <%= f.label :descricao %><br>
+     <%= f.text_area :descricao, :class => 'form-control' %>
+    </div>
+   </div>
+  
+   <%= f.hidden_field :user_id, :value => current_user.id %>
+
+   <br>
+  <div class="row mar-bot40">
+    <div class="col-lg-8" > 
+  <div class="btn-group">
+      <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+      <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+      </button>
+      <%= link_to orcamentos_path, :class => "btn btn-default btn-sm" do %>
+          <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+        <% end %>
+  </div>
+   </div>
+</div>
+
+ </div><!-- /.box-body -->
+</form>
+<% end %>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog ">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Medicamentos</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+          <div class="input-group">
+               <input type="text" class="form-control" id="nomeproduto" name="nomeproduto" placeholder="Digite o nome do medicamento">
+               <input type="hidden" name="idproduto" id="idproduto">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
+             </span>
+          </div><!-- /input-group -->
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+
+    </div>
+   </div>
+ </div>
+
+
+
+<!-- Modal -->
+<div id="myModalConfirm" class="modal fade" role="dialog ">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirme</h4>
+      </div>
+       <input type="hidden" name="id_produto_orcamento" id="id_produto_orcamento">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            Deseja excluir este produto?
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="exclui_produto_orcamento($('#id_produto_orcamento').val())" >Sim</button>
+        </div>
+    </div>
+
+    </div>
+   </div>
+ </div>
+
+<script type="text/javascript">
+  
+      $(document).ready(function() {
+         $('#nomeproduto').autocomplete({
+         source: '/busca',
+         dataType: 'json',
+         minLength: 0,
+         change: function(event, ui) {
+         if (!ui.item) {
+         $('#nomeproduto').val('');
+       }
+     },
+
+    select: function(event, ui) {
+    if (ui.item) {
+        $("#idproduto").val(ui.item.id);
+      }
+     }
+    });
+   });
+
+  function cadastraprodutoorcamento(){
+        $.ajax({
+          url: '<%= cadastrar_prodorcamento_path %>',
+          data : {
+            produto_id : $("#idproduto").val(),
+            orcamento_id : '<%=@orcamento.id%>'
+          },
+          success: function(data){           
+              carrega_orcamento_produto()      
+          }
+        })
+      }
+
+  function carrega_orcamento_produto(){
+     $.ajax({
+          url: '<%= carregaOrcamentoProduto_path %>',
+          data : {
+            orcamento_id : '<%= @orcamento.id%>'
+          },
+          success: function(data){
+             $("#tbProduto").empty();
+            for (var i in data) {
+              var item = data[i];
+                $( "#tbProduto" ).append( "<tr><td>"+item.nome+"</td>"+
+                                              "<td Align='right'><button type='button' onclick='confirmeExclusao("+item.id+")'  class='btn btn-default btn-xs' aria-label='Left Align'>" +
+                                              "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>" +
+                                            "</tr>" );
+             };
+          }
+        })
+ }
+
+  function confirmeExclusao(id) {
+       $("#id_produto_orcamento").val(id);
+       $('#myModalConfirm').modal('show');
+  }
+
+ function exclui_produto_orcamento(id){
+    $.ajax({
+          url: '<%= exclui_prodorcamento_path %>',
+          data : {
+            produtoorcamento_id : id
+          },
+          success: function(data){
+             $('#myModalConfirm').modal('hide');           
+              carrega_orcamento_produto()      
+          }
+        })
+}
+
+
+carrega_orcamento_produto()
+
+
+</script>
+
+
+<style type="text/css">
+  .ui-autocomplete {
+      z-index: 5000;
+  }
+</style>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  principioativo: MyString
+  laboratorio: MyString
+  concentracao: MyString
+  formafarmaceutica: MyString
+  tipoproduto_id: 
+
+two:
+  nome: MyString
+  principioativo: MyString
+  laboratorio: MyString
+  concentracao: MyString
+  formafarmaceutica: MyString
+  tipoproduto_id: 

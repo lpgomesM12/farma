@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @dadosuser.user %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @dadosuser.endereco %>
+</p>
+
+<%= link_to 'Edit', edit_dadosuser_path(@dadosuser) %> |
+<%= link_to 'Back', dadosusers_path %>

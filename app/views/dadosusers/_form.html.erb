@@ -1,0 +1,25 @@
+<%= form_for(@dadosuser) do |f| %>
+  <% if @dadosuser.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dadosuser.errors.count, "error") %> prohibited this dadosuser from being saved:</h2>
+
+      <ul>
+      <% @dadosuser.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :endereco_id %><br>
+    <%= f.text_field :endereco_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

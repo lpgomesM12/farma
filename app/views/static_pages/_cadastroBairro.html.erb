@@ -1,0 +1,136 @@
+ <%= form_for(@dadosuser) do |f| %>
+  <% if @dadosuser.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dadosuser.errors.count, "error") %> prohibited this dadosuser from being saved:</h2>
+
+      <ul>
+      <% @dadosuser.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <section class="content-header">
+      <!--Mensagens aqui-->    
+      <div class="alert alert-warning alert-dismissable">
+       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+           <h5>Antes de proseguir cadastre seu bairro.</h5>
+      </div>
+</section>
+   <!-- Main content -->
+ <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="box box-primary">
+          <div class="box-header with-border">
+               <h3 class="box-title">Cadastro de bairro</h3>
+           </div><!-- /.box-header --> 
+
+	<!-- form start -->
+	<form role="form">
+	  <div class="box-body">
+
+	      <%= f.fields_for :endereco do |enderecos| %>
+			 <div class="row">
+			  <%=  f.fields_for :estado do |estado| %>
+			      <div class="col-lg-5">
+			        <%= estado.label :Estado %><br>
+			        <%= estado.select :estado_id, options_from_collection_for_select(Estado.all, 'id', 'nome_estado',@estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class => 'form-control' }%>
+			      </div>
+			  <%end%>
+			  </div>
+			  <div class="row">
+			  <%if @cidade %>
+			        <div class="col-lg-5">
+			          <%= enderecos.label :Cidade %>
+			          <%= enderecos.select :cidade_id, options_from_collection_for_select(@cidade, 'id', 'nome_cidade',@cidade_setada),{:include_blank => true}, :class => 'form-control'%>
+			        </div>
+			  <%else%>
+
+			  <div class="col-lg-5">
+			          <%= enderecos.label :Cidade %><br>
+			          <%= enderecos.select :cidade_id, [], {}, {:onchange => 'changeBairro(this)', :class => 'form-control'}%>
+			  </div>
+			   <%end%>
+			  </div>
+
+			  <div class="row">
+			    <%if @bairro %>
+			        <div class="col-lg-5">
+			          <%= enderecos.label :Bairro %>
+			          <%= enderecos.select :bairro_id, options_from_collection_for_select(@bairro, 'id', 'nome',@bairro_setada),{}, :class => 'form-control'%>
+			        </div>
+			  <%else%>
+
+			  <div class="col-lg-5">
+			          <%= enderecos.label :Bairro %><br>
+			          <%= enderecos.select :bairro_id, [], {}, :class => 'form-control'%>
+			  </div>
+			   <%end%>
+			 </div>
+	       <%end%>
+
+       
+       <br>
+	  <div class="row mar-bot40">
+	    <div class="col-lg-8" > 
+	  <div class="btn-group">
+	      <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+	      <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+	      </button>
+	  </div>
+	   </div>
+	</div>
+	        
+	    </div><!-- /.box-body -->
+	   </form>
+	  </div><!-- /.box -->
+	  </section>
+<% end %>
+
+<script type="text/javascript">
+  
+      function changeState(state){
+        $.ajax({
+          url: '<%= listarCidade_path %>',
+          data : {id : state.value},
+          success: function(data){
+            $('#dadosuser_endereco_attributes_cidade_id').empty();
+            $('#dadosuser_endereco_attributes_cidade_id').html('<option>Carregando...</option>');
+            $('#dadosuser_endereco_attributes_cidade_id').attr('disabled', 'disabled');
+            var options = "";
+            for (var i in data) {
+              var item = data[i];
+              options += "<option value='"+item.id+"'>"+item.nome+"</option>"
+            };
+   
+            $('#dadosuser_endereco_attributes_cidade_id').html(options);
+            $('#dadosuser_endereco_attributes_cidade_id').removeAttr('disabled');          
+          }
+        })
+      }
+
+       function changeBairro(bairro){
+        $.ajax({
+          url: '<%= listarBairro_path %>',
+          data : {id : bairro.value},
+          success: function(data){
+            $('#dadosuser_endereco_attributes_bairro_id').empty();
+            $('#dadosuser_endereco_attributes_bairro_id').html('<option>Carregando...</option>');
+            $('#dadosuser_endereco_attributes_bairro_id').attr('disabled', 'disabled');
+            var options = "";
+            for (var i in data) {
+              var item = data[i];
+              options += "<option value='"+item.id+"'>"+item.nome+"</option>"
+            };
+   
+            $('#dadosuser_endereco_attributes_bairro_id').html(options);
+            $('#dadosuser_endereco_attributes_bairro_id').removeAttr('disabled');          
+          }
+        })
+      }
+
+</script>

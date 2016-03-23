@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orcamento_id: 
+  empresa_id: 
+
+two:
+  orcamento_id: 
+  empresa_id: 

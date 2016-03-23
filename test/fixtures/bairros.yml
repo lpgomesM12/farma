@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  latitude: MyString
+  longitude: MyString
+  cidade_id: 
+
+two:
+  nome: MyString
+  latitude: MyString
+  longitude: MyString
+  cidade_id: 

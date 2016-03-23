@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  valor_orcamento: 9.99
+  valor_desconto: 
+  porcentagemdesconto: 1
+  valor_total: 9.99
+  mensagem: MyText
+
+two:
+  valor_orcamento: 9.99
+  valor_desconto: 
+  porcentagemdesconto: 1
+  valor_total: 9.99
+  mensagem: MyText

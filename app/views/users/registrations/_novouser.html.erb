@@ -1,0 +1,19 @@
+  <%= form_for("user", :url => user_registration_path) do |f| %>   
+     <div class="form-group form-group-lg">
+         <%= f.text_field :nome, autofocus: true, :placeholder =>'Nome completo', :class => 'form-control' %>
+      </div> 
+     <div class="form-group form-group-lg">
+         <%= f.email_field :email, :placeholder =>'Email', :class => 'form-control' %>
+      </div>
+     <div class="form-group form-group-lg">
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "off", :placeholder =>'Senha', :class => 'form-control'  %>
+    </div>
+    <div class="form-group form-group-lg">
+           <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder =>'Confirmar Senha', :class => 'form-control'  %>
+     </div>
+       <button class="btn btn-lg btn-block btn-primary" type="submit">Iniciar agora mesmo!</button>
+<% end %>
+

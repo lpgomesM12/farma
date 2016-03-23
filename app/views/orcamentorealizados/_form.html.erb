@@ -1,0 +1,37 @@
+<%= form_for(@orcamentorealizado) do |f| %>
+  <% if @orcamentorealizado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@orcamentorealizado.errors.count, "error") %> prohibited this orcamentorealizado from being saved:</h2>
+
+      <ul>
+      <% @orcamentorealizado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :valor_orcamento %><br>
+    <%= f.text_field :valor_orcamento %>
+  </div>
+  <div class="field">
+    <%= f.label :valor_desconto %><br>
+    <%= f.text_field :valor_desconto %>
+  </div>
+  <div class="field">
+    <%= f.label :porcentagemdesconto %><br>
+    <%= f.number_field :porcentagemdesconto %>
+  </div>
+  <div class="field">
+    <%= f.label :valor_total %><br>
+    <%= f.text_field :valor_total %>
+  </div>
+  <div class="field">
+    <%= f.label :mensagem %><br>
+    <%= f.text_area :mensagem %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

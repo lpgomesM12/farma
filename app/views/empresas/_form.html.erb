@@ -1,0 +1,188 @@
+<%= form_for(@empresa) do |f| %>
+
+<!-- form start -->
+<form role="form">
+  <div class="box-body">
+    <div class="row mar-bot40">
+      <div class="col-lg-10" >
+       <%= f.label :nome %><br>
+       <%= f.text_field :nome, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="row mar-bot40">
+      <div class="col-lg-10" >
+        <%= f.label :razaosocial %><br>
+        <%= f.text_field :razaosocial, :class => 'form-control' %>
+      </div>
+     </div> 
+     <div class="row mar-bot40">
+       <div class="col-lg-10" >
+        <div class="field">
+          <%= f.label :cnpj %><br>
+          <%= f.text_field :cnpj, :class => 'form-control' %>
+        </div>
+       </div>
+     </div> 
+  
+    <div class="row mar-bot40">
+      <div class="col-lg-10" > 
+        <%= f.label :informacao %><br>
+        <%= f.text_field :informacao, :class => 'form-control' %>
+      </div>
+   </div>
+<div class="row">  
+  <div class="col-lg-2">
+    <h4>Telefônes</h4>
+  </div>
+ </div>
+  <div id="telefones">
+    <%= f.fields_for :telefones do |item| %>
+      <%= render 'telefone_fields', :f => item %>
+     <% end %>
+      <div class='links'>
+      <br>
+        <%= link_to_add_association 'Novo Telefône', f, :telefones, :class => "btn btn-default btn-xs" %>
+      </div>
+  </div>
+
+<hr>
+
+<div class="row">  
+  <div class="col-lg-2">
+    <h4>Endereço</h4>
+  </div>
+ </div>
+
+<%= f.fields_for :endereco do |enderecos| %>
+ <div class="row">  
+    <div class="col-lg-10">
+      <%= enderecos.label :endereco %><br>
+      <%= enderecos.text_field :endereco, :class => 'form-control' %>
+    </div>
+ </div>
+ <div class="row">  
+     <div class="col-lg-2">
+       <%= enderecos.label :numero %><br>
+       <%= enderecos.text_field :numero, :class => 'form-control' %>
+    </div>
+    <div class="col-lg-8">
+       <%= enderecos.label :complemento %><br>
+       <%= enderecos.text_field :complemento, :class => 'form-control' %>
+    </div>
+ </div>
+
+ <div class="row">
+    <div class="col-lg-2">
+       <%= enderecos.label :cep %><br>
+       <%= enderecos.text_field :cep, :class => 'form-control' %>
+    </div> 
+     <div class="col-lg-4">
+       <%= enderecos.label :Latitude %><br>
+       <%= enderecos.text_field :latitude, :class => 'form-control' %>
+    </div>
+      <div class="col-lg-4">
+       <%= enderecos.label :Longitude %><br>
+       <%= enderecos.text_field :longitude, :class => 'form-control' %>
+    </div>
+ </div>
+
+ <div class="row">
+  <%=  f.fields_for :estado do |estado| %>
+      <div class="col-lg-5">
+        <%= estado.label :Estado %><br>
+        <%= estado.select :estado_id, options_from_collection_for_select(Estado.all, 'id', 'nome_estado',@estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class => 'form-control' }%>
+      </div>
+  <%end%>
+  <%if @cidade %>
+        <div class="col-lg-5">
+          <%= enderecos.label :Cidade %>
+          <%= enderecos.select :cidade_id, options_from_collection_for_select(@cidade, 'id', 'nome_cidade',@cidade_setada),{:include_blank => true}, :class => 'form-control'%>
+        </div>
+  <%else%>
+
+  <div class="col-lg-5">
+          <%= enderecos.label :Cidade %><br>
+          <%= enderecos.select :cidade_id, [], {}, {:onchange => 'changeBairro(this)', :class => 'form-control'}%>
+  </div>
+   <%end%>
+  </div>
+
+  <div class="row">
+    <%if @bairro %>
+        <div class="col-lg-5">
+          <%= enderecos.label :Bairro %>
+          <%= enderecos.select :bairro_id, options_from_collection_for_select(@bairro, 'id', 'nome',@bairro_setada),{}, :class => 'form-control'%>
+        </div>
+  <%else%>
+
+  <div class="col-lg-5">
+          <%= enderecos.label :Bairro %><br>
+          <%= enderecos.select :bairro_id, [], {}, :class => 'form-control'%>
+  </div>
+   <%end%>
+  </div>
+
+<%end%>
+
+ <br>
+  <div class="row mar-bot40">
+    <div class="col-lg-8" > 
+  <div class="btn-group">
+      <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+      <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+      </button>
+      <%= link_to empresas_path, :class => "btn btn-default btn-sm" do %>
+          <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+        <% end %>
+  </div>
+   </div>
+</div>
+
+  </div><!-- /.box-body -->
+
+</form>
+<% end %>
+
+<script type="text/javascript">
+  
+      function changeState(state){
+        $.ajax({
+          url: '<%= listarCidade_path %>',
+          data : {id : state.value},
+          success: function(data){
+            $('#empresa_endereco_attributes_cidade_id').empty();
+            $('#empresa_endereco_attributes_cidade_id').html('<option>Carregando...</option>');
+            $('#empresa_endereco_attributes_cidade_id').attr('disabled', 'disabled');
+            var options = "";
+            for (var i in data) {
+              var item = data[i];
+              options += "<option value='"+item.id+"'>"+item.nome+"</option>"
+            };
+   
+            $('#empresa_endereco_attributes_cidade_id').html(options);
+            $('#empresa_endereco_attributes_cidade_id').removeAttr('disabled');          
+          }
+        })
+      }
+
+       function changeBairro(bairro){
+        $.ajax({
+          url: '<%= listarBairro_path %>',
+          data : {id : bairro.value},
+          success: function(data){
+            $('#empresa_endereco_attributes_bairro_id').empty();
+            $('#empresa_endereco_attributes_bairro_id').html('<option>Carregando...</option>');
+            $('#empresa_endereco_attributes_bairro_id').attr('disabled', 'disabled');
+            var options = "";
+            for (var i in data) {
+              var item = data[i];
+              options += "<option value='"+item.id+"'>"+item.nome+"</option>"
+            };
+   
+            $('#empresa_endereco_attributes_bairro_id').html(options);
+            $('#empresa_endereco_attributes_bairro_id').removeAttr('disabled');          
+          }
+        })
+      }
+
+</script>
