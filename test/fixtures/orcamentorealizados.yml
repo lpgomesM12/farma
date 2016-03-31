@@ -2,14 +2,18 @@
 
 one:
   valor_orcamento: 9.99
-  valor_desconto: 
+  valor_desconto: 9.99
   porcentagemdesconto: 1
   valor_total: 9.99
+  situacaoorcamento_id: 
+  orcamentoempresa_id: 
   mensagem: MyText
 
 two:
   valor_orcamento: 9.99
-  valor_desconto: 
+  valor_desconto: 9.99
   porcentagemdesconto: 1
   valor_total: 9.99
+  situacaoorcamento_id: 
+  orcamentoempresa_id: 
   mensagem: MyText

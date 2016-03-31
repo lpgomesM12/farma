@@ -22,5 +22,14 @@ module Farma
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.time_zone = "Brasilia"
+    config.active_record.default_timezone = :local
+
+    config.i18n.default_locale = :'pt-BR'
+    config.i18n.available_locales = :'pt-BR'
+    
+
+
   end
 end

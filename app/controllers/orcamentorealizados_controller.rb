@@ -1,6 +1,22 @@
 class OrcamentorealizadosController < ApplicationController
   before_action :set_orcamentorealizado, only: [:show, :edit, :update, :destroy]
 
+  def receber_orcamento
+      @orcamentorealizado = Orcamentorealizado.new
+      @orcamentorealizado.orcamentoempresa_id = params[:id]
+      @orcamentorealizado.situacaoorcamento_id = 1 
+      
+    respond_to do |format|
+      if @orcamentorealizado.save
+        format.html { redirect_to edit_orcamentorealizado_path(@orcamentorealizado.id), notice: 'Orcamentorealizado was successfully created.' }
+        format.json { render :show, status: :created, location: @orcamentorealizado }
+      else
+        format.html { render :new }
+        format.json { render json: @orcamentorealizado.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /orcamentorealizados
   # GET /orcamentorealizados.json
   def index
@@ -69,6 +85,6 @@ class OrcamentorealizadosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def orcamentorealizado_params
-      params.require(:orcamentorealizado).permit(:valor_orcamento, :valor_desconto, :porcentagemdesconto, :valor_total, :mensagem)
+      params.require(:orcamentorealizado).permit(:valor_orcamento, :valor_desconto, :porcentagemdesconto, :valor_total, :situacaoorcamento_id, :orcamentoempresa_id, :mensagem)
     end
 end

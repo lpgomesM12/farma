@@ -12,7 +12,7 @@ class ProdutosController < ApplicationController
     render :json => true
 
    end
-
+   
   def carrega_produto_orcamento
     @produtoorcamentos = Produtoorcamento.where(orcamento_id: params[:orcamento_id])
     json_produtoorcamento = @produtoorcamentos.map { |item| {:id => item.id,
@@ -26,17 +26,23 @@ class ProdutosController < ApplicationController
     render :json => true
   end
 
+  def busca_produto
+
+  end
+
   # GET /produtos
   # GET /produtos.json
   def index
     @produtos = Produto.all
   end
 
-
   def search
      @results = Produto.search(params[:term]).limit(15)
   end
 
+  def busca
+     @results = Produto.search(params[:term]).limit(15)
+  end
 
   # GET /produtos/1
   # GET /produtos/1.json

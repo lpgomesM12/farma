@@ -1,42 +1,55 @@
-  <!-- Content Header (Page header) -->
-<section class="content-header">
-     <!--Mensagens aqui-->
-      <%if notice %>  
-      <%end%>
-    <!--<small></small>-->
-
-        <%= link_to criaOrcamento_path, class: "btn btn-primary" do %>
-                  <span class="glyphicon glyphicon-file"></span>Novo Orçamento
-    <% end %>
-
+ <%@estiloMensagem = "alert alert-success alert-dismissable"%>
+<%if notice %>  
+    <!-- Content Header (Page header) -->
+  <section class="content-header">
+       <!--Mensagens aqui-->
+           <section class="content-header">
+             <div class= "<%=@estiloMensagem%>" >
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <h4>  <i class="icon fa fa-check"></i> Pronto</h4>
+                              <%=notice%>
+            </div>
+        </section>
   </section>  
+<%end%>
+
    <!-- Main content -->
  <section class="content">
+ <%= link_to criaOrcamento_path, class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-file"></span>Novo Orçamento
+ <% end %>
 
-    <!-- Small boxes (Stat box) -->
-       <div class="box box-primary">
-             <div class="box-header with-border">
-               <h3 class="box-title">Orçamentos</h3>
-              </div><!-- /.box-header --> 
-      <div class="box-body table-responsive no-padding">             
-          <table class="table table-hover">
-            <thead>
-            </thead>
-            <tbody>
-           <%@orcamentos.each do |orcamento| %>
-                <tr>
-                  <td><%= link_to orcamento.nome, edit_orcamento_path(orcamento)%></td>
-                <td align='right'>
-                  <div class="btn-group">
-                      <%= link_to orcamento, class: "btn btn-default btn-sm" do %>
-                        <span class="glyphicon glyphicon-list-alt"></span> Exibir
-                      <% end %>             
+  <br>
+  <br>
+ <!-- row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- The time line -->
+              <ul class="timeline">
+            <%@orcamentos.each do |orcamento| %>
+
+                <% qdt = Orcamentorealizado.qtd_orcamento_realizado(orcamento.id).count%>  
+                <li>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> <%=orcamento.created_at.strftime("%R - %d/%m/%Y")%></span>
+                    <h3 class="timeline-header"><%= link_to orcamento.nome, edit_orcamento_path(orcamento)%></h3>
+                    <div class="timeline-footer">
+                      <%= link_to orcamento, class: "btn btn-primary btn-sm" do %>
+                         Exibir
+                      <% end %>
+      
+                      <%= link_to orcamento, class: "btn btn-warning btn-sm" do %>
+                         Respostas
+                        <span aria-hidden="true"><small class="label bg-red"><%=qdt%></small></span> 
+                      <% end %>
+                   
+                    </div>
                   </div>
-                  </td> 
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div><!-- /.box -->
+                </li>
+                <%end%>
+                <li>
+                </li>
+              </ul>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
 </section>

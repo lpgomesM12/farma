@@ -18,7 +18,7 @@ class ProdorcarealizadosControllerTest < ActionController::TestCase
 
   test "should create prodorcarealizado" do
     assert_difference('Prodorcarealizado.count') do
-      post :create, prodorcarealizado: { flag_produtoemfalta: @prodorcarealizado.flag_produtoemfalta, porcentagemdesconto: @prodorcarealizado.porcentagemdesconto, valor: @prodorcarealizado.valor, valor_desconto: @prodorcarealizado.valor_desconto, valor_total: @prodorcarealizado.valor_total }
+      post :create, prodorcarealizado: { flag_produtoemfalta: @prodorcarealizado.flag_produtoemfalta, orcamentorealizado_id: @prodorcarealizado.orcamentorealizado_id, porcentagemdesconto: @prodorcarealizado.porcentagemdesconto, produto_id: @prodorcarealizado.produto_id, valor_desconto: @prodorcarealizado.valor_desconto, valor_produto: @prodorcarealizado.valor_produto, valor_total: @prodorcarealizado.valor_total }
     end
 
     assert_redirected_to prodorcarealizado_path(assigns(:prodorcarealizado))
@@ -35,7 +35,7 @@ class ProdorcarealizadosControllerTest < ActionController::TestCase
   end
 
   test "should update prodorcarealizado" do
-    patch :update, id: @prodorcarealizado, prodorcarealizado: { flag_produtoemfalta: @prodorcarealizado.flag_produtoemfalta, porcentagemdesconto: @prodorcarealizado.porcentagemdesconto, valor: @prodorcarealizado.valor, valor_desconto: @prodorcarealizado.valor_desconto, valor_total: @prodorcarealizado.valor_total }
+    patch :update, id: @prodorcarealizado, prodorcarealizado: { flag_produtoemfalta: @prodorcarealizado.flag_produtoemfalta, orcamentorealizado_id: @prodorcarealizado.orcamentorealizado_id, porcentagemdesconto: @prodorcarealizado.porcentagemdesconto, produto_id: @prodorcarealizado.produto_id, valor_desconto: @prodorcarealizado.valor_desconto, valor_produto: @prodorcarealizado.valor_produto, valor_total: @prodorcarealizado.valor_total }
     assert_redirected_to prodorcarealizado_path(assigns(:prodorcarealizado))
   end
 

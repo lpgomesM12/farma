@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323151259) do
+ActiveRecord::Schema.define(version: 20160328220900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,8 +68,9 @@ ActiveRecord::Schema.define(version: 20160323151259) do
     t.integer  "cidade_id"
     t.string   "latitude"
     t.string   "longitude"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.boolean  "flag_localexato"
   end
 
   add_index "enderecos", ["bairro_id"], name: "index_enderecos_on_bairro_id", using: :btree
@@ -82,6 +83,35 @@ ActiveRecord::Schema.define(version: 20160323151259) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "fotoorcamentos", force: :cascade do |t|
+    t.integer  "orcamento_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "foto_file_name"
+    t.string   "foto_content_type"
+    t.integer  "foto_file_size"
+    t.datetime "foto_updated_at"
+  end
+
+  add_index "fotoorcamentos", ["orcamento_id"], name: "index_fotoorcamentos_on_orcamento_id", using: :btree
+
+  create_table "grupopermissaos", force: :cascade do |t|
+    t.string   "nome"
+    t.text     "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "grupopermissaousers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "grupopermissao_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "grupopermissaousers", ["grupopermissao_id"], name: "index_grupopermissaousers_on_grupopermissao_id", using: :btree
+  add_index "grupopermissaousers", ["user_id"], name: "index_grupopermissaousers_on_user_id", using: :btree
 
   create_table "orcamentoempresas", force: :cascade do |t|
     t.integer  "orcamento_id"
@@ -98,12 +128,14 @@ ActiveRecord::Schema.define(version: 20160323151259) do
     t.decimal  "valor_desconto"
     t.integer  "porcentagemdesconto"
     t.decimal  "valor_total"
+    t.integer  "situacaoorcamento_id"
+    t.integer  "orcamentoempresa_id"
     t.text     "mensagem"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "situacaoorcamento_id"
   end
 
+  add_index "orcamentorealizados", ["orcamentoempresa_id"], name: "index_orcamentorealizados_on_orcamentoempresa_id", using: :btree
   add_index "orcamentorealizados", ["situacaoorcamento_id"], name: "index_orcamentorealizados_on_situacaoorcamento_id", using: :btree
 
   create_table "orcamentos", force: :cascade do |t|
@@ -115,6 +147,8 @@ ActiveRecord::Schema.define(version: 20160323151259) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "situacaoorcamento_id"
+    t.string   "latitude"
+    t.string   "longitude"
     t.integer  "bairro_id"
   end
 
@@ -123,14 +157,19 @@ ActiveRecord::Schema.define(version: 20160323151259) do
   add_index "orcamentos", ["user_id"], name: "index_orcamentos_on_user_id", using: :btree
 
   create_table "prodorcarealizados", force: :cascade do |t|
-    t.decimal  "valor"
+    t.decimal  "valor_produto"
     t.decimal  "valor_desconto"
     t.decimal  "valor_total"
     t.integer  "porcentagemdesconto"
     t.boolean  "flag_produtoemfalta"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "orcamentorealizado_id"
+    t.integer  "produto_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
+
+  add_index "prodorcarealizados", ["orcamentorealizado_id"], name: "index_prodorcarealizados_on_orcamentorealizado_id", using: :btree
+  add_index "prodorcarealizados", ["produto_id"], name: "index_prodorcarealizados_on_produto_id", using: :btree
 
   create_table "produtoorcamentos", force: :cascade do |t|
     t.integer  "orcamento_id"
@@ -196,9 +235,11 @@ ActiveRecord::Schema.define(version: 20160323151259) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "empresa_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["empresa_id"], name: "index_users_on_empresa_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "bairros", "cidades"
@@ -208,14 +249,21 @@ ActiveRecord::Schema.define(version: 20160323151259) do
   add_foreign_key "empresas", "enderecos"
   add_foreign_key "enderecos", "bairros"
   add_foreign_key "enderecos", "cidades"
+  add_foreign_key "fotoorcamentos", "orcamentos"
+  add_foreign_key "grupopermissaousers", "grupopermissaos"
+  add_foreign_key "grupopermissaousers", "users"
   add_foreign_key "orcamentoempresas", "empresas"
   add_foreign_key "orcamentoempresas", "orcamentos"
+  add_foreign_key "orcamentorealizados", "orcamentoempresas"
   add_foreign_key "orcamentorealizados", "situacaoorcamentos"
   add_foreign_key "orcamentos", "bairros"
   add_foreign_key "orcamentos", "situacaoorcamentos"
   add_foreign_key "orcamentos", "users"
+  add_foreign_key "prodorcarealizados", "orcamentorealizados"
+  add_foreign_key "prodorcarealizados", "produtos"
   add_foreign_key "produtoorcamentos", "orcamentos"
   add_foreign_key "produtoorcamentos", "produtos"
   add_foreign_key "produtos", "tipoprodutos"
   add_foreign_key "telefones", "empresas"
+  add_foreign_key "users", "empresas"
 end

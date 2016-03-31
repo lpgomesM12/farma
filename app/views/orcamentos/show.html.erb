@@ -1,19 +1,95 @@
-<p id="notice"><%= notice %></p>
+  <!-- Main content -->
+ <section class="content">
 
-<p>
-  <strong>Nome:</strong>
-  <%= @orcamento.nome %>
-</p>
 
-<p>
-  <strong>Descricao:</strong>
-  <%= @orcamento.descricao %>
-</p>
+   <div class="box-group" id="accordion">
+	        <div class="panel box box-danger">
+	                      <div class="box-header with-border">
+	                        <h4 class="box-title">
+	                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+	                           Dados <%=@orcamento.nome %></a>     
+	                        </h4>
+	                      </div>
+	                      <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
+	                        <div class="box-body">  
+	                         <h4><strong>Produtos:</strong></h4>
+							        <ol>
+							              <%@orcamento.produtoorcamento.each do |produtoorcamento| %>
+							              <li><%=produtoorcamento.produto.nome%></li>
+							              <%end%>
+							        </ol>
+	                      </div>
+	                      <div class="panel panel-default">
+						  <div class="panel-body text-center">
+						  	<%= form_for(@orcamento) do |f| %>
+								<div class="row"> 
+											    <%=f.fields_for :fotoorcamento do |foto|%>
+													  <% unless foto.object.new_record? %>
+													   <%= link_to image_tag(foto.object.foto.url(:original))
+													        %>
+												<%end%>
+										<%end%>
+							      </div>         
+							 <%end%>					 
+						  </div>
+	                 </div>
+	             </div>
+	      </div>
+   </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @orcamento.user %>
-</p>
+<%@Orcamentorealizados.each do |orcamentorealizado| %>
+ <!-- Small boxes (Stat box) -->
+ <div class="box box-success">
+      <div class="box-header with-border">
+         <h3 class="box-title"><%=orcamentorealizado.orcamentoempresa.empresa.nome%></h3> 
+          <div class="pull-right">
+            <strong style="color:#00adef;font-size: 1.2em"><%=number_to_currency(orcamentorealizado.valor_total, unit: "R$", separator: ",", delimiter: "")%></strong> 
+         </div>
 
-<%= link_to 'Edit', edit_orcamento_path(@orcamento) %> |
-<%= link_to 'Back', orcamentos_path %>
+       </div><!-- /.box-header -->             
+     <form role="form">
+      <div class="box-body">
+           <%orcamentorealizado.prodorcarealizado.each do |prodorcarealizado| %>
+               <em style="font-size: 1em"><%=prodorcarealizado.produto.nome%>,</em>
+          <%end%>
+
+        <h4>
+           <small>
+	           <%=orcamentorealizado.orcamentoempresa.empresa.endereco.endereco%> 
+	           <%=orcamentorealizado.orcamentoempresa.empresa.endereco.bairro.nome%>.
+	           <%=orcamentorealizado.orcamentoempresa.empresa.endereco.cidade.nome_cidade%> - 
+	           <%=orcamentorealizado.orcamentoempresa.empresa.endereco.cidade.estado.sigl_estado%>.
+                <strong>Telefônes</strong>  
+	            <%orcamentorealizado.orcamentoempresa.empresa.telefones.each do |tel|%>
+	            	| <%=tel.numero%>
+	            <%end%>
+
+           </small>
+         </h4>
+         <%= link_to orcamentorealizado, class: "btn btn-success btn-xs" do %>
+                Mais detalhes
+             <span aria-hidden="true"><small class="label bg-red"></small></span> 
+         <% end %>
+
+        </div><!-- /.box -->    
+      </form>
+ </div><!-- /.box-body -->
+
+<%end%>
+
+<div class="btn-group">          
+	  <%= link_to orcamentos_path, :class => "btn btn-default btn-sm" do %>
+	    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+	  <% end %>       
+	</div>
+</section>
+
+
+<style type="text/css">
+	
+	img {
+	  max-width:100%;
+	  max-height:100%	
+    }
+
+</style>

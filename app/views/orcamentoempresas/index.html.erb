@@ -1,0 +1,63 @@
+     <!-- Content Header (Page header) -->
+    <section class="content-header">
+          <!--<h1>
+            Solicitações de Orçamentos
+          </h1>-->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <!-- row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- The time line -->
+              <ul class="timeline">
+
+              <%data = Time.now.strftime("%d/%m/%Y")%>
+              <% @orcamentoempresa.each do |orcamento| %>
+
+               <%if data != orcamento.created_at.strftime("%d/%m/%Y")%>
+	                <!-- timeline time label -->
+	                <li class="time-label">
+	                  <span class="bg-green">
+	                    <%=orcamento.created_at.strftime("%d/%m/%Y")%>
+	                  </span>
+	                </li>
+                <%end%>
+
+                <% data = orcamento.created_at.strftime("%d/%m/%Y")%>
+
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
+                <li>
+                  <!--<i class="fa fa-file-text-o bg-purple"></i>-->
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> <%=orcamento.created_at.strftime('%R')%></span>
+                    <h3 class="timeline-header">Nome: <a><%=orcamento.orcamento.user.nome%></a></h3>
+                    <!--<div class="timeline-body">
+                        Texto aqui
+                    </div>-->
+                    <div class="timeline-footer">
+                      <a class="btn btn-success btn-xs">Orçar</a>
+         
+
+                      <%= link_to orcamento, class: "btn btn-primary btn-xs" do %>
+                         Visualizar
+                      <% end %>
+                    
+                    </div>
+                  </div>
+                </li>
+
+                <%end%>
+
+                <!-- END timeline item -->
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
+  </section><!-- /.content -->

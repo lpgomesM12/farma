@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Valor:</strong>
-  <%= @prodorcarealizado.valor %>
+  <strong>Valor produto:</strong>
+  <%= @prodorcarealizado.valor_produto %>
 </p>
 
 <p>
@@ -23,6 +23,16 @@
 <p>
   <strong>Flag produtoemfalta:</strong>
   <%= @prodorcarealizado.flag_produtoemfalta %>
+</p>
+
+<p>
+  <strong>Orcamentorealizado:</strong>
+  <%= @prodorcarealizado.orcamentorealizado %>
+</p>
+
+<p>
+  <strong>Produto:</strong>
+  <%= @prodorcarealizado.produto %>
 </p>
 
 <%= link_to 'Edit', edit_prodorcarealizado_path(@prodorcarealizado) %> |

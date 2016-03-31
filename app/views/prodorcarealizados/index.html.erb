@@ -5,11 +5,13 @@
 <table>
   <thead>
     <tr>
-      <th>Valor</th>
+      <th>Valor produto</th>
       <th>Valor desconto</th>
       <th>Valor total</th>
       <th>Porcentagemdesconto</th>
       <th>Flag produtoemfalta</th>
+      <th>Orcamentorealizado</th>
+      <th>Produto</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,11 +19,13 @@
   <tbody>
     <% @prodorcarealizados.each do |prodorcarealizado| %>
       <tr>
-        <td><%= prodorcarealizado.valor %></td>
+        <td><%= prodorcarealizado.valor_produto %></td>
         <td><%= prodorcarealizado.valor_desconto %></td>
         <td><%= prodorcarealizado.valor_total %></td>
         <td><%= prodorcarealizado.porcentagemdesconto %></td>
         <td><%= prodorcarealizado.flag_produtoemfalta %></td>
+        <td><%= prodorcarealizado.orcamentorealizado %></td>
+        <td><%= prodorcarealizado.produto %></td>
         <td><%= link_to 'Show', prodorcarealizado %></td>
         <td><%= link_to 'Edit', edit_prodorcarealizado_path(prodorcarealizado) %></td>
         <td><%= link_to 'Destroy', prodorcarealizado, method: :delete, data: { confirm: 'Are you sure?' } %></td>

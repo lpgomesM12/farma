@@ -18,6 +18,7 @@
 //= require raphael
 //= require app.min
 //= require demo
+//= require util
 //= require plugins/sparkline/jquery.sparkline.min
 //= require plugins/jvectormap/jquery-jvectormap-1.2.2.min
 //= require plugins/jvectormap/jquery-jvectormap-world-mill-en

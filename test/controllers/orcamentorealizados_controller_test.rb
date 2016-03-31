@@ -18,7 +18,7 @@ class OrcamentorealizadosControllerTest < ActionController::TestCase
 
   test "should create orcamentorealizado" do
     assert_difference('Orcamentorealizado.count') do
-      post :create, orcamentorealizado: { mensagem: @orcamentorealizado.mensagem, porcentagemdesconto: @orcamentorealizado.porcentagemdesconto, valor_desconto: @orcamentorealizado.valor_desconto, valor_orcamento: @orcamentorealizado.valor_orcamento, valor_total: @orcamentorealizado.valor_total }
+      post :create, orcamentorealizado: { mensagem: @orcamentorealizado.mensagem, orcamentoempresa_id: @orcamentorealizado.orcamentoempresa_id, porcentagemdesconto: @orcamentorealizado.porcentagemdesconto, situacaoorcamento_id: @orcamentorealizado.situacaoorcamento_id, valor_desconto: @orcamentorealizado.valor_desconto, valor_orcamento: @orcamentorealizado.valor_orcamento, valor_total: @orcamentorealizado.valor_total }
     end
 
     assert_redirected_to orcamentorealizado_path(assigns(:orcamentorealizado))
@@ -35,7 +35,7 @@ class OrcamentorealizadosControllerTest < ActionController::TestCase
   end
 
   test "should update orcamentorealizado" do
-    patch :update, id: @orcamentorealizado, orcamentorealizado: { mensagem: @orcamentorealizado.mensagem, porcentagemdesconto: @orcamentorealizado.porcentagemdesconto, valor_desconto: @orcamentorealizado.valor_desconto, valor_orcamento: @orcamentorealizado.valor_orcamento, valor_total: @orcamentorealizado.valor_total }
+    patch :update, id: @orcamentorealizado, orcamentorealizado: { mensagem: @orcamentorealizado.mensagem, orcamentoempresa_id: @orcamentorealizado.orcamentoempresa_id, porcentagemdesconto: @orcamentorealizado.porcentagemdesconto, situacaoorcamento_id: @orcamentorealizado.situacaoorcamento_id, valor_desconto: @orcamentorealizado.valor_desconto, valor_orcamento: @orcamentorealizado.valor_orcamento, valor_total: @orcamentorealizado.valor_total }
     assert_redirected_to orcamentorealizado_path(assigns(:orcamentorealizado))
   end
 

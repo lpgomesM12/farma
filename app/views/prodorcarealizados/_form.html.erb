@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :valor %><br>
-    <%= f.text_field :valor %>
+    <%= f.label :valor_produto %><br>
+    <%= f.text_field :valor_produto %>
   </div>
   <div class="field">
     <%= f.label :valor_desconto %><br>
@@ -30,6 +30,14 @@
   <div class="field">
     <%= f.label :flag_produtoemfalta %><br>
     <%= f.check_box :flag_produtoemfalta %>
+  </div>
+  <div class="field">
+    <%= f.label :orcamentorealizado_id %><br>
+    <%= f.text_field :orcamentorealizado_id %>
+  </div>
+  <div class="field">
+    <%= f.label :produto_id %><br>
+    <%= f.text_field :produto_id %>
   </div>
   <div class="actions">
     <%= f.submit %>
