@@ -9,6 +9,7 @@ class CreateSituacaoorcamentos < ActiveRecord::Migration
     Situacaoorcamento.create(:nome => 'Criado')
     Situacaoorcamento.create(:nome => 'Salvo')
     Situacaoorcamento.create(:nome => 'Enviado')
+    Situacaoorcamento.create(:nome => 'Recebido')
     Situacaoorcamento.create(:nome => 'Realizado')
 
   end
