@@ -23,16 +23,33 @@
     <input type="hidden" name="idproduto" id="idproduto">
  </div>
 
- <div class="col-lg-3">
-    <label>Valor Produto</label><br>
-    <div class="input-group">
-        <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder="Valor produto">
-        <input type="hidden" name="idproduto" id="idproduto">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
-             </span>
-    </div><!-- /input-group -->
- </div>
+
+<% if @orcamentorealizado.situacaoorcamento_id == 5%>
+   <div class="col-lg-3">
+      <label>Valor Produto</label><br>
+      <div class="input-group">
+          <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder="Valor produto">
+          <input type="hidden" name="idproduto" id="idproduto">
+              <span class="input-group-btn">
+                  <button class="btn btn-primary" disabled onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
+               </span>
+      </div><!-- /input-group -->
+   </div>
+
+  <%else%>
+   <div class="col-lg-3">
+      <label>Valor Produto</label><br>
+      <div class="input-group">
+          <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder="Valor produto">
+          <input type="hidden" name="idproduto" id="idproduto">
+              <span class="input-group-btn">
+                  <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
+               </span>
+      </div><!-- /input-group -->
+   </div>
+
+<%end%>
+
   <div class="col-lg-2">
     <label></label><br>
     <label class="checkbox-inline"><input type="checkbox" id="checkEmFalta" value="">Em falta</label>
@@ -75,20 +92,25 @@
   </div>
  </div>
 
-     <br>
-  <div class="row mar-bot40">
-    <div class="col-lg-8" > 
-  <div class="btn-group">
-      <button type="submit" value="Submit" class="btn btn-primary btn-sm">
-      <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
-      </button>
-      <%= link_to orcamentorealizados_path, :class => "btn btn-default btn-sm" do %>
-          <span class="glyphicon glyphicon-arrow-left"></span> Voltar
-        <% end %>
-  </div>
-   </div>
-</div>
-  </div><!-- /.box-body -->
+  <br>
+  
+
+<% if @orcamentorealizado.situacaoorcamento_id != 5%>
+    <div class="row mar-bot40">
+     <div class="col-lg-8" > 
+      <div class="btn-group">
+            <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+            </button>
+            <%= link_to orcamentorealizados_path, :class => "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+              <% end %>
+         </div>
+      </div>
+     </div>
+<% end %>
+
+ </div><!-- /.box-body -->
 </form>
 
 <% end %>
@@ -189,8 +211,10 @@
             flag_produtoemfalta : $("#flag_produtoemfalta").val(),
             orcamentorealizado_id : '<%=@orcamentorealizado.id%>'
           },
-          success: function(data){           
-              carrega_orcamento_produto()      
+          success: function(data){
+              $("#nomeproduto").val("");
+              $("#valor_total").val("");           
+              carrega_orcamento_produto();    
           }
         })
   }

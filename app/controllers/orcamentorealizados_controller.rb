@@ -4,7 +4,7 @@ class OrcamentorealizadosController < ApplicationController
   def receber_orcamento
       @orcamentorealizado = Orcamentorealizado.new
       @orcamentorealizado.orcamentoempresa_id = params[:id]
-      @orcamentorealizado.situacaoorcamento_id = 1 
+      @orcamentorealizado.situacaoorcamento_id = 4 
       
     respond_to do |format|
       if @orcamentorealizado.save
@@ -58,7 +58,7 @@ class OrcamentorealizadosController < ApplicationController
   def update
     respond_to do |format|
       if @orcamentorealizado.update(orcamentorealizado_params)
-        format.html { redirect_to @orcamentorealizado, notice: 'Orcamentorealizado was successfully updated.' }
+        format.html { redirect_to @orcamentorealizado, notice: 'Orçamento realizado com sucesso.' }
         format.json { render :show, status: :ok, location: @orcamentorealizado }
       else
         format.html { render :edit }

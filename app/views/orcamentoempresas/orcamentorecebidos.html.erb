@@ -1,0 +1,55 @@
+<section class="content-header">
+    <% if @orcamentorealizados.empty? %>
+        <div class="alert alert-warning alert-dismissable">
+       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+           <h5>Nenhum pedido de orçamento recebido.</h5>
+      </div>
+    <%end%>
+
+  </section>
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="timeline">
+              <%data = Time.now%>
+              <% @orcamentorealizados.each do |orcamento| %>
+
+               <%if data != orcamento.created_at.strftime("%d/%m/%Y")%>
+	                <!-- timeline time label -->
+	                <li class="time-label">
+	                  <span class="bg-green">
+	                    <%=orcamento.created_at.strftime("%d/%m/%Y")%>
+	                  </span>
+	                </li>
+                <%end%>
+
+                <% data = orcamento.created_at.strftime("%d/%m/%Y")%>
+                <li>
+                  <!--<i class="fa fa-file-text-o bg-purple"></i>-->
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> <%=orcamento.created_at.strftime('%R')%></span>
+                    <h3 class="timeline-header">Nome: <a><%=orcamento.orcamentoempresa.orcamento.user.nome%></a></h3>
+                    <!--<div class="timeline-body">
+                        Texto aqui
+                    </div>-->
+                    <div class="timeline-footer">
+                      <a class="btn btn-success btn-xs">Orçar</a>
+         
+                      <%= link_to orcamento, class: "btn btn-primary btn-xs" do %>
+                         Visualizar
+                      <% end %>
+                    
+                    </div>
+                  </div>
+                </li>
+
+                <%end%>
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
+  </section><!-- /.content -->

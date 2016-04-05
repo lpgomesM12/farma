@@ -2,17 +2,15 @@ class ProdutosController < ApplicationController
   before_action :set_produto, only: [:show, :edit, :update, :destroy]
 
  
-
-   def cadastrar_produto_orcamento
-
+  def cadastrar_produto_orcamento
     @produtoorcamento = Produtoorcamento.new
     @produtoorcamento.orcamento_id = params[:orcamento_id]
     @produtoorcamento.produto_id = params[:produto_id]
     @produtoorcamento.save
     render :json => true
-
-   end
+  end
    
+
   def carrega_produto_orcamento
     @produtoorcamentos = Produtoorcamento.where(orcamento_id: params[:orcamento_id])
     json_produtoorcamento = @produtoorcamentos.map { |item| {:id => item.id,
@@ -20,6 +18,7 @@ class ProdutosController < ApplicationController
     render :json => json_produtoorcamento
   end
 
+  
   def exclui_produto_orcamento
     @produtoorcamento = Produtoorcamento.find(params[:produtoorcamento_id])
     @produtoorcamento.destroy

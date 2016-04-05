@@ -2,6 +2,11 @@
 class OrcamentosController < ApplicationController
   before_action :set_orcamento, only: [:show, :edit, :update, :destroy]
 
+  
+ def showorcamentorealizado
+   @orcamentorealizado = Orcamentorealizado.find(params[:id])
+ end
+
   # GET /orcamentos
   # GET /orcamentos.json
   def index
@@ -12,7 +17,7 @@ class OrcamentosController < ApplicationController
   # GET /orcamentos/1.json
   def show      
       @orcamento
-      @Orcamentorealizados = Orcamentorealizado.joins(:orcamentoempresa).where(situacaoorcamento_id: 5, orcamentoempresas: {orcamento_id: @orcamento.id}) 
+      @Orcamentorealizados = Orcamentorealizado.joins(:orcamentoempresa).where(situacaoorcamento_id: 5, orcamentoempresas: {orcamento_id: @orcamento.id}).order(created_at: :desc) 
   end
 
   # GET /orcamentos/new

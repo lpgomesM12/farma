@@ -50,7 +50,13 @@
      <form role="form">
       <div class="box-body">
            <%orcamentorealizado.prodorcarealizado.each do |prodorcarealizado| %>
-               <em style="font-size: 1em"><%=prodorcarealizado.produto.nome%>,</em>
+               <em style="font-size: 1em"><%=prodorcarealizado.produto.nome%>                
+                    <%if prodorcarealizado.flag_produtoemfalta%>
+		                 <em style="font-size: 0.9em;color:red">
+		                 	Em falta
+		                 </em>
+	                 <%end%>
+               ,</em>
           <%end%>
 
         <h4>
@@ -66,10 +72,13 @@
 
            </small>
          </h4>
-         <%= link_to orcamentorealizado, class: "btn btn-success btn-xs" do %>
+         <%= link_to showorcamentorealizado_orcamento_path(orcamentorealizado), class: "btn btn-success btn-xs" do %>
                 Mais detalhes
              <span aria-hidden="true"><small class="label bg-red"></small></span> 
          <% end %>
+         <div class="pull-right">
+          <span class="time"><i class="fa fa-clock-o"></i> <%=orcamentorealizado.created_at.strftime('%R')%></span>
+         </div>
 
         </div><!-- /.box -->    
       </form>

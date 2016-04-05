@@ -4,8 +4,8 @@ class Produto < ActiveRecord::Base
   acts_as_copy_target
 
 
-  def self.search(term)
-   where("lower(nome)like ?", "%#{term.downcase}%")
-  end
+ def self.search(term)
+    where("lower(nome)like ?", "%#{term.downcase}%")
+ end
 
 end

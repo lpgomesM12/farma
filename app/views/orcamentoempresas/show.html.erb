@@ -10,7 +10,7 @@
                   <h4><strong>Produtos:</strong></h4>
                   <ol>
                      <%@orcamentoempresa.orcamento.produtoorcamento.each do |produtoorcamento| %>
-				        <li><%=produtoorcamento.produto.nome%></li>
+				        <li><%=produtoorcamento.produto.nome%> - <%=produtoorcamento.produto.apresentacao%></li>
 				      <%end%>
                   </ol>
                 </div>		    

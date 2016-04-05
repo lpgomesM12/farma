@@ -3,7 +3,14 @@
   <section class="content-header">
     <h4>
       <!--Mensagens aqui-->
-    <p id="notice"><%= notice %></p>
+
+     <%if notice %>
+        <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><%= notice %></h4>
+        </div>
+      <%end%>
+
     </h4>
   </section>
 
@@ -34,14 +41,14 @@
         </div><!-- /.box-body -->
       </form>
 
-<div class="btn-group">          
-  <%= link_to edit_orcamentorealizado_path(@orcamentorealizado), :class => "btn btn-default btn-sm" do %>
+<!--<div class="btn-group">          
+  <%#= link_to edit_orcamentorealizado_path(@orcamentorealizado), :class => "btn btn-default btn-sm" do %>
     <span class="glyphicon glyphicon-pencil"></span> Editar
-  <% end %>
-  <%= link_to orcamentorealizados_path, :class => "btn btn-default btn-sm" do %>
+  <%# end %>
+  <%#= link_to orcamentorealizados_path, :class => "btn btn-default btn-sm" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
-  <% end %>       
+  <%# end %>       
 </div>
-
+-->
 </section>
 

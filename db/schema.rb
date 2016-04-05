@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328220900) do
+ActiveRecord::Schema.define(version: 20160404115647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 20160328220900) do
   end
 
   add_index "cidades", ["estado_id"], name: "index_cidades_on_estado_id", using: :btree
+
+  create_table "conversas", force: :cascade do |t|
+    t.integer  "orcamentoempresa_id"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "conversas", ["orcamentoempresa_id"], name: "index_conversas_on_orcamentoempresa_id", using: :btree
+  add_index "conversas", ["user_id"], name: "index_conversas_on_user_id", using: :btree
 
   create_table "dadosusers", force: :cascade do |t|
     t.integer  "user_id"
@@ -112,6 +122,18 @@ ActiveRecord::Schema.define(version: 20160328220900) do
 
   add_index "grupopermissaousers", ["grupopermissao_id"], name: "index_grupopermissaousers_on_grupopermissao_id", using: :btree
   add_index "grupopermissaousers", ["user_id"], name: "index_grupopermissaousers_on_user_id", using: :btree
+
+  create_table "mensagemconversas", force: :cascade do |t|
+    t.text     "mensgem"
+    t.boolean  "flag_lida"
+    t.integer  "conversa_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "mensagemconversas", ["conversa_id"], name: "index_mensagemconversas_on_conversa_id", using: :btree
+  add_index "mensagemconversas", ["user_id"], name: "index_mensagemconversas_on_user_id", using: :btree
 
   create_table "orcamentoempresas", force: :cascade do |t|
     t.integer  "orcamento_id"
@@ -244,6 +266,8 @@ ActiveRecord::Schema.define(version: 20160328220900) do
 
   add_foreign_key "bairros", "cidades"
   add_foreign_key "cidades", "estados"
+  add_foreign_key "conversas", "orcamentoempresas"
+  add_foreign_key "conversas", "users"
   add_foreign_key "dadosusers", "enderecos"
   add_foreign_key "dadosusers", "users"
   add_foreign_key "empresas", "enderecos"
@@ -252,6 +276,8 @@ ActiveRecord::Schema.define(version: 20160328220900) do
   add_foreign_key "fotoorcamentos", "orcamentos"
   add_foreign_key "grupopermissaousers", "grupopermissaos"
   add_foreign_key "grupopermissaousers", "users"
+  add_foreign_key "mensagemconversas", "conversas"
+  add_foreign_key "mensagemconversas", "users"
   add_foreign_key "orcamentoempresas", "empresas"
   add_foreign_key "orcamentoempresas", "orcamentos"
   add_foreign_key "orcamentorealizados", "orcamentoempresas"

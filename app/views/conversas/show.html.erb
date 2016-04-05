@@ -1,0 +1,122 @@
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h4>
+      <!--Mensagens aqui-->
+    <p id="notice"><%= notice %></p>
+    </h4>
+  </section>
+
+ <section class="content">
+  <div class="col-md-12">
+          <!-- DIRECT CHAT SUCCESS -->
+          <div class="box box-success direct-chat direct-chat-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%=@falandoCom	%></h3>
+                  <div class="box-tools pull-right">
+                    <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-green">3</span>-->
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-toggle="tooltip" title="Contato" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
+                    <!--<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>-->
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages" id='listMensagens'>
+
+                  </div><!--/.direct-chat-messages-->
+
+                  <!-- Contacts are loaded here -->
+                  <div class="direct-chat-contacts">
+                    <ul class="contacts-list">
+                      <li>
+                        <a href="#">
+                          <!--<img class="contacts-list-img" src="/assets/defaultAvatar.png">-->
+                          <div class="contacts-list-info">
+                            <span class="contacts-list-name">
+                              Leandro
+                              <small class="contacts-list-date pull-right">2/28/2015</small>
+                            </span>
+                            <span class="contacts-list-msg">How have you been? I was...</span>
+                          </div><!-- /.contacts-list-info -->
+                        </a>
+                      </li><!-- End Contact Item -->
+                    </ul><!-- /.contatcts-list -->
+                  </div><!-- /.direct-chat-pane -->
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <div class="input-group">
+                      <input type="text" name="message" id="message" placeholder="Digite a mensagem ..." class="form-control">
+                      <span class="input-group-btn">
+                        <button type="button" onclick="enviaMensagem();" class="btn btn-success btn-flat">Enviar</button>
+                      </span>
+                    </div>
+                  </form>
+                </div><!-- /.box-footer-->
+            </div><!--/.direct-chat -->
+       </div><!-- /.col -->
+ </section>
+
+
+<script type="text/javascript">
+	
+
+function carrega_mensagem(){
+     $.ajax({
+          url: '<%= carregaMensagens_path %>',
+          data : {
+            conversa_id : '<%= @conversa.id%>'
+          },
+          success: function(data){
+             $("#listMensagens").empty();
+            for (var i in data) {
+              var item = data[i];
+
+              if (item.user_id == item.usuariolocal){	               
+	               html =  "<div class='direct-chat-msg right'>";
+	               html += "  <div class='direct-chat-info clearfix'>";
+	           //  html += "    <span class='direct-chat-name pull-right'>"+item.usuario+"</span>";
+	               html += "    <span class='direct-chat-timestamp pull-left'>"+item.data+"</span>";
+	               html += "   </div>";
+	               html += "  <div class='direct-chat-text'>"+item.mensagem+"</div>";
+	               html += "</div>";
+               }else{
+	               html =  "<div class='direct-chat-msg'>";
+	               html += "  <div class='direct-chat-info clearfix'>";
+	           //  html += "    <span class='direct-chat-name pull-left'>"+item.usuario+"</span>";
+	               html += "    <span class='direct-chat-timestamp pull-right'>"+item.data+"</span>";
+	               html += "   </div>";
+	               html += "  <div class='direct-chat-text'>"+item.mensagem+"</div>";
+	               html += "</div>";
+               }
+              
+               $( "#listMensagens" ).append(html);
+             };
+
+             $( "#listMensagens" ).append("<input type='hidden' id='finalScron'>");
+             
+          }
+        })
+ }
+
+
+ function enviaMensagem(){
+        $.ajax({
+          url: '<%= envia_mensagem_path %>',
+          data : {
+            mensagem : $("#message").val(),
+            conversa_id : '<%= @conversa.id%>',
+            user_id: '<%= current_user.id%>'
+          },
+          success: function(data){
+            $("#message").val("");           
+            carrega_mensagem();      
+          
+          }
+        })
+    }
+
+setInterval(function() { carrega_mensagem();; }, 5000);
+carrega_mensagem();
+
+</script>

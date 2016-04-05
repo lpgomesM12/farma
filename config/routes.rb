@@ -1,18 +1,13 @@
 Rails.application.routes.draw do
   
+  resources :mensagemconversas
+  resources :conversas
   resources :prodorcarealizados
-  resources :orcamentorealizados do
-    member do
-      get :receber_orcamento   
-    end
-  end
-
   resources :orcamentoempresas
   resources :grupopermissaousers
   resources :grupopermissaos
   resources :dadosusers
   resources :situacaoorcamentos
-  resources :orcamentos
   resources :produtos
   resources :tipoprodutos
   resources :telefones
@@ -22,6 +17,20 @@ Rails.application.routes.draw do
   resources :cidades
   resources :estados
   devise_for :users
+    
+  resources :orcamentorealizados do
+    member do
+      get :receber_orcamento   
+    end
+  end
+
+  resources :orcamentos do
+    member do 
+      get :showorcamentorealizado
+    end 
+  end
+
+
   
   get 'static_pages/home'
   root 'static_pages#home'
@@ -42,6 +51,9 @@ Rails.application.routes.draw do
 
   match '/busca_produto', to: 'produtos#busca_produto', via: 'get'
   get 'buscaproduto' => 'produtos#busca'
+  match '/carregaMensagens', to: 'conversas#carrega_mensagens', via: 'get'
+  match '/envia_mensagem', to: 'conversas#envia_mensagem', via: 'get'
 
+  match '/orcamentosrealizados', to: 'orcamentoempresas#orcamentorecebidos', via: 'get'
   
 end

@@ -1,0 +1,100 @@
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h4>
+      <!--Mensagens aqui-->
+
+     <%if notice %>
+        <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><%= notice %></h4>
+        </div>
+      <%end%>
+
+    </h4>
+
+  </section>
+
+   <!-- Main content -->
+ <section class="content">
+
+    <!-- Small boxes (Stat box) -->
+       <div class="box box-primary">
+             <div class="box-header with-border">
+               <h3 class="box-title"><%=@orcamentorealizado.orcamentoempresa.empresa.nome %></h3>
+              </div><!-- /.box-header -->             
+      <form role="form">
+         <div class="box-body">
+
+
+        <table class="table table-hover table-condensed table-responsive ">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Valor </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @orcamentorealizado.prodorcarealizado.each do |prodorcarealizado| %>
+              <tr>
+                <td><%= prodorcarealizado.produto.nome %> - <%= prodorcarealizado.produto.apresentacao %></td>
+                <td><%=number_to_currency(prodorcarealizado.valor_total, unit: "R$", separator: ",", delimiter: "")%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <hr>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="input-group" >
+             <span class="input-group-addon"  id="sizing-addon1">Total R$</span>
+             <input type="text" class="form-control" value="<%=number_to_currency(@orcamentorealizado.valor_total, unit: 'R$', separator: ',', delimiter: '')%>" disabled aria-describedby="sizing-addon1">
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <p>
+        <label for="comment">Mensagem:</label>
+            <textarea class="form-control" disabled><%=@orcamentorealizado.mensagem %></textarea>
+      </p>
+        
+      <div class="row">
+        <div class="col-lg-3">
+        <h3>Endereço</h3>
+        </div>
+      </div>
+
+        <%=@orcamentorealizado.orcamentoempresa.empresa.endereco.endereco%> 
+        <%=@orcamentorealizado.orcamentoempresa.empresa.endereco.bairro.nome%>.
+        <%=@orcamentorealizado.orcamentoempresa.empresa.endereco.cidade.nome_cidade%> - 
+        <%=@orcamentorealizado.orcamentoempresa.empresa.endereco.cidade.estado.sigl_estado%>.
+        <strong>Telefônes</strong>  
+        <%@orcamentorealizado.orcamentoempresa.empresa.telefones.each do |tel|%>
+          | <%=tel.numero%>
+        <%end%>
+    
+      <br>
+    <br>
+
+      </div><!-- /.box -->
+
+        </div><!-- /.box-body -->
+      </form>
+
+<!--<div class="btn-group">          
+  <%#= link_to edit_orcamentorealizado_path(@orcamentorealizado), :class => "btn btn-default btn-sm" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <%# end %>
+  <%#= link_to orcamentorealizados_path, :class => "btn btn-default btn-sm" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <%# end %>       
+</div>
+-->
+</section>
+
+
+
+

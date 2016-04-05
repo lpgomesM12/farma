@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Conversas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orcamentoempresa</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conversas.each do |conversa| %>
+      <tr>
+        <td><%= conversa.orcamentoempresa %></td>
+        <td><%= conversa.user %></td>
+        <td><%= link_to 'Show', conversa %></td>
+        <td><%= link_to 'Edit', edit_conversa_path(conversa) %></td>
+        <td><%= link_to 'Destroy', conversa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Conversa', new_conversa_path %>

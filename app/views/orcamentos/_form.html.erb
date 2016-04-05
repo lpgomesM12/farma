@@ -45,22 +45,31 @@
  </div>
 <hr>
 
-<hr>
-<div class="row">  
+
+<!--<div class="row">  
   <div class="col-lg-12">
     <h4>Ou selecione todos os medicamentos que deseja.</h4>
-      <!-- Trigger the modal with a button -->
    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Adicionar   medicamentos</button>
   </div>
+ </div>-->
+<h4>Pesquise por produtos e adicione em seu orçamento</h4>
+
+<div class="col-lg-10">
+   <div class="input-group">
+        <input type="text" class="form-control" id="nomeproduto" name="nomeproduto" placeholder="Digite o nome do medicamento">
+        <input type="hidden" name="idproduto" id="idproduto">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
+             </span>
+    </div><!-- /input-group -->
  </div>
 
-<br>
-
+<br/>
 <%if @orcamento.id%>
   <%= f.hidden_field :situacaoorcamento_id, :value => 3%>
 <%end%>
 <div class="row">  
-  <div class="col-lg-8">
+  <div class="col-lg-10">
  <table class="table table-hover">
     <thead>
       <tr>
@@ -104,10 +113,9 @@
 <% end %>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog ">
+<!--<div id="myModal" class="modal fade" role="dialog ">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
     <div class="modal-content">
 
       <div class="modal-header">
@@ -123,7 +131,7 @@
             <span class="input-group-btn">
                 <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
              </span>
-          </div><!-- /input-group -->
+          </div>
           </div>
         </div>
         <br>
@@ -135,7 +143,7 @@
 
     </div>
    </div>
- </div>
+ </div> -->
 
 
 <!-- Modal -->
@@ -172,7 +180,7 @@
   
       $(document).ready(function() {
          $('#nomeproduto').autocomplete({
-         source: '/busca',
+         source: '/buscaproduto',
          dataType: 'json',
          minLength: 0,
          change: function(event, ui) {
@@ -196,8 +204,10 @@
             produto_id : $("#idproduto").val(),
             orcamento_id : '<%=@orcamento.id%>'
           },
-          success: function(data){           
-              carrega_orcamento_produto()      
+          success: function(data){
+            $("#nomeproduto").val("");           
+            carrega_orcamento_produto();      
+          
           }
         })
       }
@@ -213,7 +223,7 @@
             for (var i in data) {
               var item = data[i];
                 $( "#tbProduto" ).append( "<tr><td>"+item.nome+"</td>"+
-                                              "<td Align='right'><button type='button' onclick='confirmeExclusao("+item.id+")'  class='btn btn-default btn-xs' aria-label='Left Align'>" +
+                                              "<td Align='right'><button type='button' onclick='confirmeExclusao("+item.id+")'  class='btn btn-danger btn-xs' aria-label='Left Align'>" +
                                               "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>" +
                                             "</tr>" );
              };

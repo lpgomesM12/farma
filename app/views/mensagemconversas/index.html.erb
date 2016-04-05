@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Mensagemconversas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mensgem</th>
+      <th>Flag lida</th>
+      <th>Conversa</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mensagemconversas.each do |mensagemconversa| %>
+      <tr>
+        <td><%= mensagemconversa.mensgem %></td>
+        <td><%= mensagemconversa.flag_lida %></td>
+        <td><%= mensagemconversa.conversa %></td>
+        <td><%= mensagemconversa.user %></td>
+        <td><%= link_to 'Show', mensagemconversa %></td>
+        <td><%= link_to 'Edit', edit_mensagemconversa_path(mensagemconversa) %></td>
+        <td><%= link_to 'Destroy', mensagemconversa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mensagemconversa', new_mensagemconversa_path %>

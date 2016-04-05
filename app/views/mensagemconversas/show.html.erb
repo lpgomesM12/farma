@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mensgem:</strong>
+  <%= @mensagemconversa.mensgem %>
+</p>
+
+<p>
+  <strong>Flag lida:</strong>
+  <%= @mensagemconversa.flag_lida %>
+</p>
+
+<p>
+  <strong>Conversa:</strong>
+  <%= @mensagemconversa.conversa %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @mensagemconversa.user %>
+</p>
+
+<%= link_to 'Edit', edit_mensagemconversa_path(@mensagemconversa) %> |
+<%= link_to 'Back', mensagemconversas_path %>

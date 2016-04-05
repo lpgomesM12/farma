@@ -12,7 +12,11 @@ class Endereco < ActiveRecord::Base
          @bairro = Bairro.find(self.bairro_id)
          self.longitude = @bairro.longitude
          self.latitude =  @bairro.latitude 
-       end       
+       
+       else
+        self.flag_localexato = true
+       end
+
      end
     end
 

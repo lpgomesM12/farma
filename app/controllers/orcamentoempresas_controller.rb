@@ -1,6 +1,11 @@
 class OrcamentoempresasController < ApplicationController
  before_action :set_orcamentoempresa, only: [:show, :edit, :update, :destroy]
 
+  
+ def orcamentorecebidos
+  @orcamentorealizados = Orcamentorealizado.joins(:orcamentoempresa).where(situacaoorcamento_id: 4 ,orcamentoempresas: {empresa_id: current_user.empresa_id}) 
+ end
+
   # GET /enderecos
   # GET /enderecos.json
   def index

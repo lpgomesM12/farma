@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mensgem: MyText
+  flag_lida: false
+  conversa_id: 
+  user_id: 
+
+two:
+  mensgem: MyText
+  flag_lida: false
+  conversa_id: 
+  user_id: 
