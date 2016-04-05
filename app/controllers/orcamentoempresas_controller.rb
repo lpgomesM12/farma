@@ -11,7 +11,8 @@ class OrcamentoempresasController < ApplicationController
   def index
     @orcamentoempresa  = Orcamentoempresa.busca(current_user.empresa_id).order(created_at: :desc)    
     #@orcamentoempresa  = Orcamentoempresa.where(empresa_id: current_user.empresa_id).order(created_at: :desc)
-    # @orcamentoempresa  = Orcamentoempresa.joins(:orcamento).where(orcamentos: {user_id: current_user.id})    
+    # @orcamentoempresa  = Orcamentoempresa.joins(:orcamento).where(orcamentos: {user_id: current_user.id}) 
+  
   end
 
   # GET /enderecos/1

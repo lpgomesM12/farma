@@ -1,9 +1,24 @@
 class ConversasController < ApplicationController
   before_action :set_conversa, only: [:show, :edit, :update, :destroy]
 
+ def create_conversa
+    @conversa = Conversa.new
+    @conversa.orcamentoempresa_id = params[:id]
+    @conversa.user_id = current_user.id    
 
-  def envia_mensagem
+    respond_to do |format|
+      if @conversa.save
+        format.html { redirect_to @conversa, notice: '' }
+        format.json { render :show, status: :created, location: @conversa }
+      else
+        format.html { render :new }
+        format.json { render json: @conversa.errors, status: :unprocessable_entity }
+      end
+    end
 
+ end
+
+ def envia_mensagem
     @mensagemconversa = Mensagemconversa.new
     @mensagemconversa.mensgem = params[:mensagem]
     @mensagemconversa.conversa_id = params[:conversa_id]
@@ -11,7 +26,6 @@ class ConversasController < ApplicationController
     @mensagemconversa.save
 
     render :json => true
-
   end
   
   def carrega_mensagens
@@ -36,9 +50,9 @@ class ConversasController < ApplicationController
   # GET /conversas/1
   # GET /conversas/1.json
   def show
-
-    @falandoCom = current_user.empresa_id == 1 ? @conversa.orcamentoempresa.empresa.nome : @conversa.user.nome
-
+  
+    @falandoCom = current_user.empresa_id == 1 ? @conversa.orcamentoempresa.empresa.nome : @conversa.orcamentoempresa.orcamento.user.nome
+  
   end
 
   # GET /conversas/new

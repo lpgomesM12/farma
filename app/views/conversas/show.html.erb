@@ -44,14 +44,12 @@
                   </div><!-- /.direct-chat-pane -->
                 </div><!-- /.box-body -->
                 <div class="box-footer">
-                  <form action="#" method="post">
                     <div class="input-group">
                       <input type="text" name="message" id="message" placeholder="Digite a mensagem ..." class="form-control">
                       <span class="input-group-btn">
                         <button type="button" onclick="enviaMensagem();" class="btn btn-success btn-flat">Enviar</button>
                       </span>
                     </div>
-                  </form>
                 </div><!-- /.box-footer-->
             </div><!--/.direct-chat -->
        </div><!-- /.col -->
@@ -115,6 +113,16 @@ function carrega_mensagem(){
           }
         })
     }
+
+
+
+$(document).keypress(function(e) {
+  if(e.which == 13) {
+    enviaMensagem();
+  }
+});
+
+
 
 setInterval(function() { carrega_mensagem();; }, 5000);
 carrega_mensagem();

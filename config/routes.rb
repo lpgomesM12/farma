@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   resources :mensagemconversas
-  resources :conversas
   resources :prodorcarealizados
   resources :orcamentoempresas
   resources :grupopermissaousers
@@ -29,8 +28,12 @@ Rails.application.routes.draw do
       get :showorcamentorealizado
     end 
   end
-
-
+  
+ resources :conversas do
+    member do 
+      get :create_conversa
+    end 
+  end
   
   get 'static_pages/home'
   root 'static_pages#home'

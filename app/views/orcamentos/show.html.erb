@@ -76,6 +76,15 @@
                 Mais detalhes
              <span aria-hidden="true"><small class="label bg-red"></small></span> 
          <% end %>
+         <%@conversa = Conversa.where(orcamentoempresa_id: orcamentorealizado.orcamentoempresa)%>                  <%if @conversa.empty?%>      
+              <%= link_to create_conversa_conversa_path(orcamentorealizado.orcamentoempresa), class: "btn btn-success btn-xs" do %> 
+              <i class="fa fa-comment"></i> Enviar mensagem                           
+                <% end %>
+             <% else %>
+          <%= link_to conversa_path(@conversa.first.id), class: "btn btn-success btn-xs" do %> 
+                  <i class="fa  fa-commenting"></i> Conversa                          
+                <% end %>
+          <% end %>
          <div class="pull-right">
           <span class="time"><i class="fa fa-clock-o"></i> <%=orcamentorealizado.created_at.strftime('%R')%></span>
          </div>
