@@ -94,6 +94,45 @@
   
    <%= f.hidden_field :user_id, :value => current_user.id %>
 
+<hr>
+
+<div class="row mar-bot40">
+ <div class="col-lg-3" >
+  <strong>Forma de Pagamento</strong>
+  <div class="radio">
+      <label><%= f.radio_button :formapagamento, 'Dinheiro'%>Dinheiro</label>
+  </div>
+
+  <div class="radio">
+    <label><%= f.radio_button :formapagamento, 'Cartão débito'%>Cartão débito</label>
+  </div>
+  
+  <div class="radio">
+      <label><%= f.radio_button :formapagamento, 'Cartão crédito'%>Cartão crédito</label>
+  </div>
+
+  <div class="radio">
+     <label><%= f.radio_button :formapagamento, 'Cheque'%>Cheque</label>
+  </div>
+
+</div>
+<div class="col-lg-3" >
+  <strong>Preferência Produto</strong>
+  <div class="checkbox">
+      <label><%= f.check_box  :flag_referencia%>Referência</label>
+    </div>
+
+    <div class="checkbox">
+      <label><%= f.check_box  :flag_generico%>Genérico</label>
+    </div>
+    <div class="checkbox">
+      <label><%= f.check_box  :flag_similar%>Similar</label>
+    </div>
+  </div>
+ </div>
+
+
+
    <br>
   <div class="row mar-bot40">
     <div class="col-lg-8" > 

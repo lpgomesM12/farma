@@ -13,6 +13,9 @@ class ProdorcarealizadosController < ApplicationController
     @prodorcarealizados.orcamentorealizado_id = params[:orcamentorealizado_id]
     @prodorcarealizados.produto_id = params[:produto_id]
     @prodorcarealizados.flag_produtoemfalta = params[:flag_produtoemfalta]
+    @prodorcarealizados.flag_referencia = params[:flag_referencia]
+    @prodorcarealizados.flag_generico = params[:flag_generico]
+    @prodorcarealizados.flag_similar = params[:flag_similar]
     @prodorcarealizados.valor_total = @valor_total
     @prodorcarealizados.save
     render :json => true
@@ -26,13 +29,14 @@ class ProdorcarealizadosController < ApplicationController
                                                              :nome => item.produto.nome,
                                                              :apresentacao => item.produto.apresentacao,
                                                              :flag_produtoemfalta => item.flag_produtoemfalta,
+                                                             :flag_referencia => item.flag_referencia,
+                                                             :flag_generico => item.flag_generico,
+                                                             :flag_similar => item.flag_similar,
                                                              :valor_total => number_to_currency(item.valor_total, unit: "R$", separator: ",", delimiter: ""),
                                                              :valor_totalgeral => number_to_currency(@valor_totalGeral, unit: "", separator: ",", delimiter: "")}}
     render :json => json_prodorcarealizado
   end
 
-
-  
 
 
   def exclui_produto_realizado

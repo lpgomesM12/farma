@@ -17,7 +17,7 @@
  <%= f.hidden_field :situacaoorcamento_id, :value => 5 %>
 
 <div class="row">  
-  <div class="col-lg-7">
+  <div class="col-lg-8">
     <label>Nome Produto</label><br>
        <input type="text" class="form-control" id="nomeproduto" name="nomeproduto" placeholder="Digite o nome do medicamento">
     <input type="hidden" name="idproduto" id="idproduto">
@@ -25,7 +25,7 @@
 
 
 <% if @orcamentorealizado.situacaoorcamento_id == 5%>
-   <div class="col-lg-3">
+   <div class="col-lg-4">
       <label>Valor Produto</label><br>
       <div class="input-group">
           <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder="Valor produto">
@@ -49,10 +49,18 @@
    </div>
 
 <%end%>
-
+</div>
+<div class="row">
+<div class="col-lg-8">
+  <label class="checkbox-inline"><input type="checkbox" id="check_referencia" value="">Referência</label>
+    <input type="hidden" name="flag_produtoemfalta" id="flag_referencia">
+  <label class="checkbox-inline"><input type="checkbox" id="check_generico" value="">Genérico</label>
+    <input type="hidden" name="flag_produtoemfalta" id="flag_generico">
+  <label class="checkbox-inline"><input type="checkbox" id="check_similar" value="">Similar</label>
+    <input type="hidden" name="flag_produtoemfalta" id="flag_similar">  
+</div>
   <div class="col-lg-2">
-    <label></label><br>
-    <label class="checkbox-inline"><input type="checkbox" id="checkEmFalta" value="">Em falta</label>
+    <label class="checkbox-inline"><input type="checkbox" id="checkEmFalta" value="">Produto em falta</label>
     <input type="hidden" name="flag_produtoemfalta" id="flag_produtoemfalta">
  </div>
 </div>
@@ -92,9 +100,8 @@
   </div>
  </div>
 
-  <br>
+<br>
   
-
 <% if @orcamentorealizado.situacaoorcamento_id != 5%>
     <div class="row mar-bot40">
      <div class="col-lg-8" > 
@@ -115,42 +122,6 @@
 
 <% end %>
 
-
-<!-- Modal -->
-<!--<div id="myModal" class="modal fade" role="dialog ">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Medicamentos</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-9">
-               <input type="text" class="form-control" id="nomeproduto" name="nomeproduto" placeholder="Digite o nome do medicamento">
-               <input type="hidden" name="idproduto" id="idproduto">
-         </div>
-         <div class="col-lg-3">
-          <div class="input-group">
-               <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder="Valor produto">
-               <input type="hidden" name="idproduto" id="idproduto">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" onclick="cadastraprodutoorcamento()" type="button">Incluir</button>
-             </span>
-          </div>
-         </div>
-       </div>
-       <br>
-        <br>
-        <br>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        </div>
-     </div>
-
-   </div>
-  </div>
- </div> -->
 
 <!-- Modal -->
 <div id="myModalConfirm" class="modal fade" role="dialog ">
@@ -182,7 +153,6 @@
 
  <script type="text/javascript">
 
-
   $(document).ready(function() {
          $('#nomeproduto').autocomplete({
          source: '/buscaproduto',
@@ -209,7 +179,10 @@
             produto_id : $("#idproduto").val(),
             valor_total : $("#valor_total").val(),
             flag_produtoemfalta : $("#flag_produtoemfalta").val(),
-            orcamentorealizado_id : '<%=@orcamentorealizado.id%>'
+            orcamentorealizado_id : '<%=@orcamentorealizado.id%>',
+            flag_referencia: $("#flag_referencia").val(),
+            flag_generico: $("#flag_generico").val(),
+            flag_similar: $("#flag_similar").val(),
           },
           success: function(data){
               $("#nomeproduto").val("");
@@ -229,14 +202,27 @@ function carrega_orcamento_produto(){
              $("#tbProduto").empty();
             for (var i in data) {
               var item = data[i];
+              
+                var produtofalta = item.flag_produtoemfalta ? "Produto em falta. " : ""
+                
+                  if(item.flag_referencia){
+                      var tiporemedio = "Referência.";
+                  }else if(item.flag_generico){
+                      var tiporemedio = "Genérico.";
+                  }else if(item.flag_similar){
+                     var tiporemedio = "Similar.";
+                  }
 
-               var produtofalta = item.flag_produtoemfalta ? "Produto em falta" : ""
+                 html =  "<tr><td>"+item.nome+" - "+item.apresentacao+ "<em style='color:red;'> "+produtofalta+""+tiporemedio+"</em>"+ "</td>";
+                 html += "    <td>" +item.valor_total+"</td>";
+                 html += "    <td Align='right'>";
+                 html += "    <button type='button' onclick='confirmeExclusao("+item.id+")' class='btn btn-danger btn-xs' aria-label='Left Align'>";
+                 html += "    <span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>";
+                 html += " </tr>";
 
-                $( "#tbProduto" ).append( "<tr><td>"+item.nome+" - "+item.apresentacao+ "<em style='color:red;'> "+produtofalta+"</em>"+ "</td>"+
-                                              "<td>" +item.valor_total+"</td>"+   
-                                              "<td Align='right'><button type='button' onclick='confirmeExclusao("+item.id+")' class='btn btn-danger btn-xs' aria-label='Left Align'>" +
-                                              "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>" +
-                                            "</tr>" );
+
+
+                $( "#tbProduto" ).append(html);
 
               $("#valor_totalgeral").val(item.valor_totalgeral);
               $('#orcamentorealizado_valor_total').val(item.valor_totalgeral);
@@ -245,7 +231,7 @@ function carrega_orcamento_produto(){
         })
  }
 
-  function confirmeExclusao(id) {
+ function confirmeExclusao(id) {
        $("#id_produto_orcamento").val(id);
        $('#myModalConfirm').modal('show');
   }
@@ -271,14 +257,12 @@ function carrega_orcamento_produto(){
   })
 
 
-
 $("#checkEmFalta").click(function(){   
    if ($("#checkEmFalta").is(":checked")){
        $("#valor_total").val("");     
        $("#valor_total").attr('disabled',true);   
        $("#flag_produtoemfalta").val(true)
        
-
     }else{
       $("#valor_total").removeAttr('disabled');
       $("#flag_produtoemfalta").val(false)
@@ -286,11 +270,35 @@ $("#checkEmFalta").click(function(){
 
 })
 
+$("#check_referencia").click(function(){   
+   if ($("#check_referencia").is(":checked")){
+        $("#check_generico").prop("checked", false);
+        $("#check_similar").prop("checked", false); 
+        $("#flag_referencia").val(true);
+        $("#flag_generico").val(false);
+        $("#flag_similar").val(false);
+    }
+})
+$("#check_generico").click(function(){   
+   if ($("#check_generico").is(":checked")){
+        $("#check_referencia").prop("checked", false);
+        $("#check_similar").prop("checked", false); 
+        $("#flag_generico").val(true);
+        $("#flag_referencia").val(false);
+        $("#flag_similar").val(false);
+    }
+})
+$("#check_similar").click(function(){   
+   if ($("#check_similar").is(":checked")){
+        $("#check_referencia").prop("checked", false);
+        $("#check_generico").prop("checked", false); 
+        $("#flag_similar").val(true);
+        $("#flag_generico").val(false);
+        $("#flag_similar").val(false);
+    }
+})
 
-
-
-
- </script>
+</script>
 
 <style type="text/css">
   .ui-autocomplete {

@@ -4,22 +4,32 @@
     <div class="box-header">
        <h3 class="box-title">Dados orçamento</h3>
           <div class="box-body">
+
          <div class="row">
-           <div class="col-lg-8" >
-                 <div class="box-body">
+          <div class="col-lg-3" > 
+             <label>Forma Pagamento: </label><%=@orcamentoempresa.orcamento.formapagamento%>
+          </div>
+          <div class="col-lg-9" > 
+             <label>Preferências: </label>  <%= @orcamentoempresa.orcamento.flag_referencia ? "Referência," : "" %>
+             								<%= @orcamentoempresa.orcamento.flag_generico ? " Genérico," : "" %>
+             								<%= @orcamentoempresa.orcamento.flag_similar ? "Similar" : "" %>
+          </div>
+
+         </div> 
+         <div class="row">
+           <div class="col-lg-8" >                  
                   <h4><strong>Produtos:</strong></h4>
                   <ol>
                      <%@orcamentoempresa.orcamento.produtoorcamento.each do |produtoorcamento| %>
 				        <li><%=produtoorcamento.produto.nome%> - <%=produtoorcamento.produto.apresentacao%></li>
 				      <%end%>
-                  </ol>
-                </div>		    
+                  </ol>	    
 	       </div>
 	       <div class="col-lg-4">
 		      <%= link_to receber_orcamento_orcamentorealizado_path(@orcamentoempresa), class: "btn btn-danger btn-lg" do %>
 		                  Fazer Orçamento <span class="fa fa-dollar"></span>
 		      <% end %>
-	    </div>
+	      </div>
 	  </div>
      </div>
     </div>

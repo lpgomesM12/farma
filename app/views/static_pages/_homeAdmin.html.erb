@@ -1,6 +1,24 @@
-   
-   <% if current_user.empresa_id == 1%>
+<section class="content">
+<% if current_user.empresa_id != 1%>
+ <%@orcamentoempresa  = Orcamentoempresa.busca(current_user.empresa_id).order(created_at: :desc)%>
+
+<div class="row">
+       <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Novas Solicitações</span>
+                  <span class="info-box-number"><%=@orcamentoempresa.length%></span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+       </div><!-- /.col -->
+ </div><!-- ./col --> 
+</section>
+<%end%>
+
+
+<% if current_user.empresa_id == 1%>
 	   <%if !current_user.dadosuser%>
 	     <%= render 'cadastroBairro' %>
 	   <%end%>
-   <%end%>
+<%end%>

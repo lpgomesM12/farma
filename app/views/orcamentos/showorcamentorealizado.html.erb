@@ -38,7 +38,23 @@
           <tbody>
             <% @orcamentorealizado.prodorcarealizado.each do |prodorcarealizado| %>
               <tr>
-                <td><%= prodorcarealizado.produto.nome %> - <%= prodorcarealizado.produto.apresentacao %></td>
+                <td>
+
+                 <%= prodorcarealizado.produto.nome %> - <%= prodorcarealizado.produto.apresentacao %>
+                  
+                  <%if prodorcarealizado.flag_produtoemfalta %>
+                  <em style='color:red;'> Produto em falta.</em> 
+                  <%end%>
+
+                  <%if prodorcarealizado.flag_referencia %>  
+                      <em style='color:red;'> Referência.</em>
+                     <%elsif prodorcarealizado.flag_generico%>
+                      <em style='color:red;'> Genérico.</em>
+                     <%elsif prodorcarealizado.flag_similar%>
+                      <em style='color:red;'> Similar.</em>
+                  <%end%>
+                
+                </td>
                 <td><%=number_to_currency(prodorcarealizado.valor_total, unit: "R$", separator: ",", delimiter: "")%></td>
               </tr>
             <% end %>

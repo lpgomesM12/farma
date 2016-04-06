@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404115647) do
+ActiveRecord::Schema.define(version: 20160406105516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,14 @@ ActiveRecord::Schema.define(version: 20160404115647) do
     t.string   "latitude"
     t.string   "longitude"
     t.integer  "bairro_id"
+    t.boolean  "flag_dinheiro"
+    t.boolean  "flag_cartaodebito"
+    t.boolean  "flag_cartaocredito"
+    t.boolean  "flag_cheque"
+    t.boolean  "flag_referencia"
+    t.boolean  "flag_generico"
+    t.boolean  "flag_similar"
+    t.string   "formapagamento"
   end
 
   add_index "orcamentos", ["bairro_id"], name: "index_orcamentos_on_bairro_id", using: :btree
@@ -188,6 +196,9 @@ ActiveRecord::Schema.define(version: 20160404115647) do
     t.integer  "produto_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "flag_referencia"
+    t.boolean  "flag_generico"
+    t.boolean  "flag_similar"
   end
 
   add_index "prodorcarealizados", ["orcamentorealizado_id"], name: "index_prodorcarealizados_on_orcamentorealizado_id", using: :btree

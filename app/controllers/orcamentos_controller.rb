@@ -138,6 +138,6 @@ def seta_orcamento_empresas(orcamento)
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def orcamento_params
-      params.require(:orcamento).permit(:nome, :descricao, :user_id, :codigoorcamento, :situacaoorcamento_id, :bairro_id, :latitude, :longitude ,fotoorcamento_attributes: [:id, :_destroy, :foto])
+      params.require(:orcamento).permit(:nome, :descricao, :user_id, :codigoorcamento, :situacaoorcamento_id, :bairro_id, :latitude, :longitude, :formapagamento, :flag_referencia, :flag_generico, :flag_similar ,fotoorcamento_attributes: [:id, :_destroy, :foto])
     end
 end

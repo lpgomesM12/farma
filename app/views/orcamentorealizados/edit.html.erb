@@ -36,7 +36,19 @@
 	                        </h4>
 	                      </div>
 	                      <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
-	                        <div class="box-body">  
+	                        <div class="box-body"> 
+
+	                                 <div class="row">
+							          <div class="col-lg-3" > 
+							             <label>Forma Pagamento: </label><%=@orcamentorealizado.orcamentoempresa.orcamento.formapagamento%>
+							          </div>
+							          <div class="col-lg-9" > 
+							           <label>Preferências: </label>  <%= @orcamentorealizado.orcamentoempresa.orcamento.flag_referencia ? "Referência," : "" %>
+							             								<%= @orcamentorealizado.orcamentoempresa.orcamento.flag_generico ? " Genérico," : "" %>
+							             								<%= @orcamentorealizado.orcamentoempresa.orcamento.flag_similar ? "Similar" : "" %>
+							           </div>
+							          </div>
+
 	                         <h4><strong>Produtos:</strong></h4>
 							        <ol>
 							              <%@orcamentorealizado.orcamentoempresa.orcamento.produtoorcamento.each do |produtoorcamento| %>

@@ -36,11 +36,11 @@ class ProdutosController < ApplicationController
   end
 
   def search
-     @results = Produto.search(params[:term]).limit(15)
+     @results = Produto.search(params[:term]).limit(30)
   end
 
   def busca
-     @results = Produto.search(params[:term]).limit(15)
+     @results = Produto.search(params[:term]).limit(30)
   end
 
   # GET /produtos/1
