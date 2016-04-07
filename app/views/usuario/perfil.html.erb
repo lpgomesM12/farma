@@ -1,0 +1,15 @@
+<section class="content">
+
+<h2>Dados para acesso pelo aplicativo mensageiro</h2>
+
+ <form role="form">
+      <div class="box-body">
+			<strong>Código Usuário: </strong><%=current_user.id%> <br>
+			<strong>Chave de acesso: </strong><%=current_user.chaveacesso%>
+      </div><!-- /.info-box -->
+
+       <%= link_to criaChaveAcesso_path, class: "btn btn-primary" do %>
+                  <span class="fa fa-key"></span> Gerar nova Chave de acesso
+      <% end %>
+  </form><!-- ./col --> 
+</section>

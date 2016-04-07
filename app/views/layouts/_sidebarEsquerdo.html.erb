@@ -29,7 +29,7 @@
 
           <%@orcamentoempresa  = Orcamentoempresa.busca(current_user.empresa_id).order(created_at: :desc)%>    
       
-      <%if current_user.empresa_id == 1%>
+        <%if current_user.empresa_id == 1%>
 
           <li>
              <%= link_to  orcamentos_path do %> <i class="fa fa-list-alt"></i>
@@ -73,6 +73,16 @@
                 <% end %>
             </li>
            <% end %>
+
+         <li class="header">Usuário</li>
+          
+          <li>
+             <%= link_to  usuario_perfil_path do %>
+                  <i class="fa fa-user"></i>          
+                   <span> Dados Usuário</span>  
+                <% end %>
+          </li>
+
 
           </ul>
         </section>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'usuario/perfil'
+
   resources :mensagemconversas
   resources :prodorcarealizados
   resources :orcamentoempresas
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
 
   get 'busca' => 'produtos#search'
   get 'criaOrcamento' => 'orcamentos#create_orcamento'
+  get '/criaChaveAcesso' => 'usuario#gera_chaveacesso'
+  match '/validaUsuario', to: 'usuario#valida_usuario', via: 'get'
 
   match '/cadastrar_prodorcamento', to: 'produtos#cadastrar_produto_orcamento', via: 'get'
   match '/carregaOrcamentoProduto', to: 'produtos#carrega_produto_orcamento', via: 'get'
