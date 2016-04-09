@@ -42,6 +42,8 @@ Rails.application.routes.draw do
   match '/listarCidade', to: 'cidades#get_cities', via: 'get'
   match '/listarBairro', to: 'bairros#get_bairros', via: 'get'
 
+  get 'downloadapk'=> 'usuario#download_apk'
+
   get 'busca' => 'produtos#search'
   get 'criaOrcamento' => 'orcamentos#create_orcamento'
   get '/criaChaveAcesso' => 'usuario#gera_chaveacesso'

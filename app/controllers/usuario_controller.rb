@@ -27,4 +27,9 @@ class UsuarioController < ApplicationController
 
   end
 
+  def download_apk
+    send_file "#{Rails.root}/app-release.apk"
+  end
+
+
 end
