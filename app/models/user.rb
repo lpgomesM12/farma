@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
   before_create :seta_empresa
 
   def seta_empresa

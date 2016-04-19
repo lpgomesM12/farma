@@ -62,7 +62,8 @@ Rails.application.routes.draw do
   get 'buscaproduto' => 'produtos#busca'
   match '/carregaMensagens', to: 'conversas#carrega_mensagens', via: 'get'
   match '/envia_mensagem', to: 'conversas#envia_mensagem', via: 'get'
-
+  
+  match '/busca_qtd_orcamentoempresa', to: 'orcamentoempresas#qtd_novo_orcamento', via: 'get'
   match '/orcamentosrealizados', to: 'orcamentoempresas#orcamentorecebidos', via: 'get'
   
 end

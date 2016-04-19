@@ -12,7 +12,32 @@ class OrcamentoempresasController < ApplicationController
     @orcamentoempresa  = Orcamentoempresa.busca(current_user.empresa_id).order(created_at: :desc)    
     #@orcamentoempresa  = Orcamentoempresa.where(empresa_id: current_user.empresa_id).order(created_at: :desc)
     # @orcamentoempresa  = Orcamentoempresa.joins(:orcamento).where(orcamentos: {user_id: current_user.id}) 
-  
+  end
+
+  def qtd_novo_orcamento
+     @orcamentoemppresa =  Orcamentoempresa.busca(current_user.empresa_id)
+
+   if current_user.empresa_id == 1
+       @mensagens = Mensagemconversa.busca_conversa_usuario(conversa_user.id) 
+   else
+       @mensagens = Mensagemconversa.busca_conversa_empresa(current_user.empresa_id)
+   end
+ 
+  if @orcamentoemppresa.empty?
+        qtdSolicitacao = 0
+        else
+        qtdSolicitacao =  @orcamentoemppresa.length
+  end
+
+  if @mensagens.empty?
+        qtdMensagem = 0
+    else
+        qdtMensagem = @mensagens.length
+  end
+
+    json_parametros =  {:qtdSolicitacao => qtdSolicitacao, :qdtMensagem => qdtMensagem}
+    render :json => json_parametros
+
   end
 
   # GET /enderecos/1

@@ -24,7 +24,6 @@ class UsuarioController < ApplicationController
          json_users = @user.map { |item| {:id => item.id,
                                                           :empresa_id => item.empresa_id}}
         render :json => json_users
-
   end
 
   def download_apk

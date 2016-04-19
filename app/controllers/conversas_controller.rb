@@ -22,6 +22,7 @@ class ConversasController < ApplicationController
     @mensagemconversa = Mensagemconversa.new
     @mensagemconversa.mensgem = params[:mensagem]
     @mensagemconversa.conversa_id = params[:conversa_id]
+    @mensagemconversa.flag_lida = false
     @mensagemconversa.user_id = params[:user_id]    
     @mensagemconversa.save
 

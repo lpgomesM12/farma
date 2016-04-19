@@ -5,19 +5,61 @@
 <div class="row">
        <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+                <span class="info-box-icon bg-red"><i class="fa fa-medkit"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Novas Solicitações</span>
-                  <span class="info-box-number"><%=@orcamentoempresa.length%></span>
+                  <span class="info-box-text">Novos Orçmentos</span>
+                  <br>
+                  <div align="center">
+                  <span class="info-box-number"><small class="label bg-red"><label id="qtdorcamento"></label></small></span>
+                  </div>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
-       </div><!-- /.col -->
- </div><!-- ./col --> 
+  </div><!-- /.col -->
+
+<%end%> 
+<div class="col-md-4 col-sm-6 col-xs-12">
+         <div class="info-box">
+           <span class="info-box-icon bg-green"><i class="fa fa-commenting-o"></i></span>
+             <div class="info-box-content">
+              <span class="info-box-text">Novas mensagens</span>
+               <br>
+                <div align="center">
+                  <span class="info-box-number"><small class="label bg-red"><label id="qtdmsg"></label></small></span>
+              </div>
+            </div><!-- /.info-box-content -->
+         </div><!-- /.info-box -->
+  </div><!-- /.col -->
+ </div><!-- ./col -->
+
+ <input type="hidden" name="qtdorcamento" value="qtdorcamento">
+
+
 </section>
-<%end%>
 
 <% if current_user.empresa_id == 1%>
 	   <%if !current_user.dadosuser%>
 	     <%= render 'cadastroBairro' %>
 	   <%end%>
 <%end%>
+
+
+<script type="text/javascript">
+  
+    function busca_qtd_orcamentoempresa(){
+        $.ajax({
+          url: '<%= busca_qtd_orcamentoempresa_path %>',
+          data : {},
+          success: function(data){
+        
+          $("#qtdmsg").text(data.qdtMensagem); 
+          $("#qtdorcamento").text(data.qtdSolicitacao);                 
+          }
+        })
+      }
+
+setInterval(function() { busca_qtd_orcamentoempresa();; }, 5000);
+
+busca_qtd_orcamentoempresa();
+
+
+</script>
